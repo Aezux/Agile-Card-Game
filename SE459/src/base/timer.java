@@ -1,4 +1,11 @@
+/*
+ * Code not created by myself. 
+ * Located at https://stackoverflow.com/questions/36678896/how-to-display-seconds-of-the-timer-in-the-output-screen
+ * Credit belongs to them
+ */
+
 package base;
+
 
 import java.awt.Toolkit;
 import java.util.Timer;
@@ -8,14 +15,6 @@ public class timer {
   Toolkit toolkit;
   Timer timer;
 int t=10000,total;
-//  public timer(int seconds) {
-//    toolkit = Toolkit.getDefaultToolkit();
-//    timer = new Timer();
-//    total =seconds * t;
-//    System.out.println(total);
-////    timer.schedule(new RemindTask(), total); 
-//  }
-
 
 public timer(int seconds) {
     timer = new Timer();
