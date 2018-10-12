@@ -1,5 +1,12 @@
 package se459GroupProject;
 
+/**
+ * 
+ * A class that represents each individual player
+ * that is a part of a greater team, and plays
+ * the agile card game.
+ *
+ */
 public class Player {
 	
 	private final String name;
@@ -20,6 +27,10 @@ public class Player {
 	
 	public void setTeam(String team) {
 		this.team = team;
+	}
+	
+	public void playTheirTurn() {
+		// TODO
 	}
 }
 
