@@ -1,4 +1,4 @@
-package enewnam;
+package game;
 
 /**
  * 

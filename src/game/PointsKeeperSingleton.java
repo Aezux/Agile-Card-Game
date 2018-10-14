@@ -1,4 +1,4 @@
-package enewnam;
+package game;
 
 import java.util.HashMap;
 import java.util.Map;
