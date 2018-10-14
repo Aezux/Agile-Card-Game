@@ -1,0 +1,21 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.rectangle {
+	-fx-fill: brown; 
+}
+
+
+#testMe{
+	-fx-fill: gold;
+	-fx-alignment: center;
+	-fx-fill-width: true; 
+}
+
+.label{
+	-fx-font-size: 50px;
+}
+
+#teamHbox {
+
+	 
+}

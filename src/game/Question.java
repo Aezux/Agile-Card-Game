@@ -26,10 +26,10 @@ public class Question {
 	public Card getCard(String catagory) {		
 		if (catagory.length() == 0) return new Card();
 		String results = triviaResults(catagory, generateDifficulty());
-		return makeCard(results);
+		return makeCard(results, catagory);
 	}
 	
-	private Card makeCard(String result) {
+	private Card makeCard(String result, String category) {
 		
 		/* Store the points for the card and set the global variable back to the original value */
 		int cardPoints = points;
@@ -61,7 +61,7 @@ public class Question {
 		Collections.shuffle(list);
 		String choice = "" + list.get(0) + ", " + list.get(1) + ", " + list.get(2) + ", " + list.get(3);
 		
-		return new Card(question, answer, choice, cardPoints);
+		return new Card(question, answer, choice, cardPoints, category);
 	}
 	
 	

@@ -8,11 +8,11 @@ import game.Card;
 /*  */
 public class CardTest {
 	Card emptyCard = new Card();
-	Card correctCard = new Card("What city does Batman live in?", "A", "A) Gotham, B) New York, C) Wakanda, D) Asgard", 1);
-	Card noQuestionCard = new Card("", "A", "A) Gotham, B) New York, C) Wakanda, D) Asgard", 1);
-	Card noAnswerCard = new Card("What city does Batman live in?", "", "A) Gotham, B) New York, C) Wakanda, D) Asgard", 1);
-	Card noChoicesCard = new Card("What city does Batman live in?", "A", "", 1);
-	Card noPointsCard = new Card("What city does Batman live in?", "A", "A) Gotham, B) New York, C) Wakanda, D) Asgard", 0);
+	Card correctCard = new Card("What city does Batman live in?", "A", "A) Gotham, B) New York, C) Wakanda, D) Asgard", 1, "Pop Culture");
+	Card noQuestionCard = new Card("", "A", "A) Gotham, B) New York, C) Wakanda, D) Asgard", 1, "Pop Culture");
+	Card noAnswerCard = new Card("What city does Batman live in?", "", "A) Gotham, B) New York, C) Wakanda, D) Asgard", 1, "Pop Culture");
+	Card noChoicesCard = new Card("What city does Batman live in?", "A", "", 1, "Pop Culture");
+	Card noPointsCard = new Card("What city does Batman live in?", "A", "A) Gotham, B) New York, C) Wakanda, D) Asgard", 0, "Pop Culture");
 
 	@Test
 	/* Testing the card that is empty */

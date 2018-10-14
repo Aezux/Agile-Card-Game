@@ -6,6 +6,8 @@ public class Card {
     private String answer;
     private String choices;
     private int points;
+    private String category;
+        
 
     /* Default constructor */
     public Card() {
@@ -13,10 +15,11 @@ public class Card {
     	answer = null;
     	choices = null;
     	points = 0;
+    	category = null;
     }
     
     /* Constructor */
-    public Card(String question, String answer, String choices, int points) {
+    public Card(String question, String answer, String choices, int points, String category) {
     	/* Makes sure the the user actually enters a question */
     	if (question.length() > 0) {
     		this.question = question;
@@ -64,5 +67,9 @@ public class Card {
     /* Returns the points */
     public int getPoints() {
         return points;
+    }
+    
+    public String getCategory() {
+    	return category;
     }
 }
