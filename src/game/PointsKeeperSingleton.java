@@ -2,6 +2,8 @@ package game;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * 
@@ -42,6 +44,27 @@ public class PointsKeeperSingleton {
 	
 	public void addTeam(String team) {
 		teams.put(team, 0);
+	}
+	
+	/**
+	 * Returns the team name with the lowest points total
+	 * 
+	 * @return String
+	 */
+	public String getWinner() {
+		if (teams.isEmpty()) return "None";
+		
+		Set<String> keyset = teams.keySet();
+		String winner = keyset.toArray()[0].toString();
+		int min = teams.get(winner).intValue();
+		
+		for (Entry<String, Integer> entry : teams.entrySet()) {
+			if (entry.getValue() < min) {
+				min = entry.getValue();
+				winner = entry.getKey();
+			}
+		}
+		return winner;
 	}
 }
 
