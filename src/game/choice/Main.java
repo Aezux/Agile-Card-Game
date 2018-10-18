@@ -16,6 +16,8 @@ public class Main extends Application{
 		cardStage.setTitle("Choice Scene");
 		cardStage.setScene(choice.getScene());
 		cardStage.show();
+		choice.startScene();
+		choice.move();
 	}
 
 }
