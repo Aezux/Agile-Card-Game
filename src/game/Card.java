@@ -41,6 +41,13 @@ public class Card {
     		this.choices = null;
     	}
     	
+    	/* Makes sure the the user actually enters a choice */
+    	if (category.length() > 0) {
+    		this.category = category;
+    	} else {
+    		this.category = null;
+    	}
+    	
     	/* Makes sure the the user actually enters valid points */
     	if (points < 51 && points > -51) {
     		this.points = points;
@@ -69,6 +76,7 @@ public class Card {
         return points;
     }
     
+    /* Returns the category */
     public String getCategory() {
     	return category;
     }
