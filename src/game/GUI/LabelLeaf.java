@@ -1,8 +1,9 @@
-package game;
+package game.GUI;
 
+import game.interfaces.ShapeComponent;
 import javafx.geometry.Point2D;
 
-public class LabelLeaf implements ShapeComponent{
+public class LabelLeaf implements ShapeComponent {
 
 	@Override
 	public void move(double dx, double dy) {

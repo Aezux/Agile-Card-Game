@@ -1,8 +1,8 @@
-package game;
+package game.GUI;
 
 import java.util.ArrayList;
 
-import javafx.geometry.Point2D;
+import game.GUI.CardComponent;
 
 public class UserSpace {
 	

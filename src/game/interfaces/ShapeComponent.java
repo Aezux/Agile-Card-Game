@@ -1,4 +1,4 @@
-package game;
+package game.interfaces;
 
 import javafx.geometry.Point2D;;
 

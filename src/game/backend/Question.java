@@ -1,4 +1,6 @@
-package game;
+package game.backend;
+
+import game.backend.Card;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class Question {
 	}
 	
 	/* Gives the user a card */
-	public Card getCard(String catagory) {		
+	public Card getCard(String catagory) {
 		if (catagory.length() == 0) return new Card();
 		String results = triviaResults(catagory, generateDifficulty());
 		return makeCard(results, catagory);

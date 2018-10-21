@@ -1,4 +1,4 @@
-package game;
+package game.backend;
 
 import java.util.ArrayList;
 

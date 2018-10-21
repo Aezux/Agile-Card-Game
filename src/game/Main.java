@@ -2,6 +2,8 @@ package game;
 
 import java.util.ArrayList;
 
+import game.backend.Card;
+import game.backend.Question;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +23,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	
-	static ArrayList<Card> handDealt = new ArrayList<Card>(); 
+	static ArrayList<Card> handDealt = new ArrayList<Card>();
 	Point2D clickPoint;
 	
 	public static void main(String args[]) {

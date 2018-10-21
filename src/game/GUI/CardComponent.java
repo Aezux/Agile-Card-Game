@@ -1,10 +1,12 @@
-package game;
+package game.GUI;
 
+import game.interfaces.ShapeComponent;
+import game.backend.Card;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class CardComponent implements ShapeComponent{
+public class CardComponent implements ShapeComponent {
 
 	Boolean moveable;
 	Point2D topLeft;

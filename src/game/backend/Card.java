@@ -1,4 +1,4 @@
-package game;
+package game.backend;
 
 /* Class for a single card */
 public class Card {
