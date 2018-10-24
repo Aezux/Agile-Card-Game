@@ -1,4 +1,4 @@
-package base;
+package Gui;
 
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -6,17 +6,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import base.Team;
 
 public class TeamGui {
 
@@ -34,9 +32,9 @@ public class TeamGui {
                     ex.printStackTrace();
                 }
 
-                JFrame frame = new JFrame("Testing");
+                JFrame frame = new JFrame("Join Team");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.add(new TestPane());
+                frame.add(new TeamPane());
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
@@ -44,33 +42,35 @@ public class TeamGui {
         });
     }
 
-    public class TestPane extends JPanel {
+    public class TeamPane extends JPanel {
 
         private JLabel label;
-        private ArrayList<Integer> team1 = new ArrayList<Integer>();
-        private ArrayList<Integer> team2 = new ArrayList<Integer>();
-        private int t1Count =0;
-        private int t2Count =0;
+        private Team teamSet = new Team();
+        private String name;
+        JTextField txtInput;
 
 
-        public TestPane() {
+        public TeamPane() {
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(5, 5, 5, 5);
             gbc.gridwidth = GridBagConstraints.REMAINDER;
 
-            label = new JLabel("Choose a team");
+            label = new JLabel("Enter your name and choose a team");
             add(label, gbc);
 
+            txtInput = new JTextField("",30);
+            add(txtInput,gbc);
+            
             final JButton t1 = new JButton("Team1");
             t1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(t1Count <= 5){
-                    	t1Count++;
-                    	team1.add(t1Count);
+                	name = txtInput.getText();
+                    if(teamSet.getTeam1Size() <= 5){
+                    	teamSet.addMember(name,"team1");
                     	System.out.println("added");
-                    	System.out.println(team1.toString());
+                    	System.out.println(teamSet.getTeam1());
                     }
                     else
                     {
@@ -84,16 +84,16 @@ public class TeamGui {
             t2.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(t2Count <= 5){
-                    	t2Count++;
-                    	team2.add(t2Count);
+                	name = txtInput.getText();
+                    if(teamSet.getTeam2Size() <= 5){
+                    	teamSet.addMember(name,"team2");
                     	System.out.println("added");
-                    	System.out.println(team2.toString());
-                    }
-                    else
-                    {
-                    	System.out.println("Team full");
-                    }
+                    	System.out.println(teamSet.getTeam2());
+                    }                
+                else
+                {
+                	System.out.println("Team full");
+                }
                 }
             });
             add(t2, gbc);

@@ -1,4 +1,4 @@
-package base;
+package Gui;
 
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
