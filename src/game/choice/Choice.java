@@ -171,5 +171,10 @@ public class Choice extends Application{
 		}
 		return count == 1;
 	}
+	
+//	returns topic chosen
+	public String getTopicChosen() {
+		return topicChosen;
+	}
 
 }

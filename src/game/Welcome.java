@@ -24,6 +24,7 @@ public class Welcome extends Application {
 	private final int scale = 50;
 	private Pane root;
 	private Scene scene;
+	private boolean validInput = false;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -40,6 +41,11 @@ public class Welcome extends Application {
 		PointsKeeperSingleton.getUniqueInstance().addTeam("Team 1");
 		PointsKeeperSingleton.getUniqueInstance().addTeam("Team 2");
 		// TODO: integrate the number of players to the game
+	}
+	
+	
+	public boolean getValidInput() {
+		return validInput;
 	}
 
 	public Scene getScene() {
@@ -90,6 +96,8 @@ public class Welcome extends Application {
 						actionTargetText.setText("");
 						result = Integer.parseInt(answerField.getText());
 						initializeTeams(result);
+						validInput = true;
+						System.out.println(validInput);
 					} catch (Exception exception) {
 						actionTargetText.setText("Please enter a number.");
 					}
