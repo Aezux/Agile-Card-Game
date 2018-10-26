@@ -1,4 +1,4 @@
-package tests.java.game.backend;
+package test.java.game.backend;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
