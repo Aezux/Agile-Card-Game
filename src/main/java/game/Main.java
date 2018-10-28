@@ -1,13 +1,14 @@
-package main.java.game;
+package game;
 
-//import game.choice.Choice;
-import main.java.game.GUI.choice.Choice;
-import main.java.game.GUI.welcome.Welcome;
-import main.java.game.GUI.Board;
+import game.GUI.choice.Choice;
+import game.GUI.welcome.Welcome;
+import game.GUI.Board;
+import game.GUI.boardTwo.PlayerBoard2;
 
 import java.util.ArrayList;
 
-import main.java.game.backend.Card;
+import game.backend.Card;
+import game.backend.Question;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +20,7 @@ public class Main extends Application{
 	Welcome welcome;
 	Board board;
 	Choice choice;
+	PlayerBoard2 board2;
 	Stage window;
 
 	static ArrayList<Card> handDealt = new ArrayList<Card>();
@@ -32,9 +34,15 @@ public class Main extends Application{
 	public void start(Stage window) throws Exception {
 		this.window = window;
 		window.setTitle("Agile Scrum Master");
+		
+		
 		welcome = new Welcome();
 		board = new Board();
 		choice = new Choice();
+		board2 = new PlayerBoard2();
+		
+		
+		
 		
 		window.addEventHandler(ActionEvent.ACTION, actionHandler);
 				
@@ -51,6 +59,21 @@ public class Main extends Application{
 				choice.startScene();
 				choice.move();
 				window.show();
+				
+//				if (choice.getTopic() != null) {
+//					Question question = new Question();
+//					Card card = question.getCard(choice.getTopic());
+//					
+//					window.setScene(board2.getScene());
+////					primaryStage.setTitle("Enter an Answer");
+////					primaryStage.setScene(getScene());
+//					board2.getCard(card);
+//					board2.startScene();
+////					board2.show();
+//					
+//					window.show();
+//					System.out.println("main: " + choice.getTopic());
+//				}
 			}
 			
 		}

@@ -1,9 +1,10 @@
-package main.java.game.GUI.boardTwo;
+package game.GUI.boardTwo;
 
 import java.util.ArrayList;
 
-import main.java.game.backend.ImageFinder;
-import main.java.game.interfaces.PlayerComponent;
+import game.backend.Card;
+import game.backend.ImageFinder;
+import game.interfaces.PlayerComponent;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,13 +29,15 @@ public class PlayerBoard2 extends Application {
 	private Pane root;
 	private Scene scene;
 	private ArrayList<PlayerComponent> players;
+	
+	private Card card;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle("Enter an Answer");
-		primaryStage.setScene(getScene());
-		startScene();
-		primaryStage.show();
+//		primaryStage.setTitle("Enter an Answer");
+//		primaryStage.setScene(getScene());
+//		startScene();
+//		primaryStage.show();
 	}
 	
 	public static void main(String[] args) {
@@ -44,12 +47,18 @@ public class PlayerBoard2 extends Application {
 	private String getQuestion() {
 		
 		// get the current Card with the player's question here:
-		return "This is the current question. Who played the role?";
+//		return "This is the current question. Who played the role?";
+		return card.getQuestion() + "\n" + "choices: " + card.getChoices();
+	}
+	
+	public void getCard(Card card) {
+		this.card = card;
 	}
 	
 	private boolean checkAnswer(String answer) {
 		// TODO: check the answer
-		return true;
+//		return true;
+		return answer.equals(card.getAnswer());
 	}
 
 	public Scene getScene() {

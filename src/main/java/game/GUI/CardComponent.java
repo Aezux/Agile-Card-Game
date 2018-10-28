@@ -1,7 +1,7 @@
-package main.java.game.GUI;
+package game.GUI;
 
-import main.java.game.interfaces.ShapeComponent;
-import main.java.game.backend.Card;
+import game.interfaces.ShapeComponent;
+import game.backend.Card;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;

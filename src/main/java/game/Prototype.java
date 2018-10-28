@@ -1,6 +1,6 @@
-package main.java.game;
+package game;
 
-import main.java.game.backend.*;
+import game.backend.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package main.java.game.backend;
+package game.backend;
 
 import java.util.HashMap;
 import java.util.Map;

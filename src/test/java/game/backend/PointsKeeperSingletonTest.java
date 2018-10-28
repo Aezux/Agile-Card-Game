@@ -1,9 +1,9 @@
-package test.java.game.backend;
+package game.backend;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import main.java.game.backend.PointsKeeperSingleton;
+import game.backend.PointsKeeperSingleton;
 
 class PointsKeeperSingletonTest {
 

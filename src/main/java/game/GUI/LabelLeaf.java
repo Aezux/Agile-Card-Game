@@ -1,6 +1,6 @@
-package main.java.game.GUI;
+package game.GUI;
 
-import main.java.game.interfaces.ShapeComponent;
+import game.interfaces.ShapeComponent;
 import javafx.geometry.Point2D;
 
 public class LabelLeaf implements ShapeComponent {

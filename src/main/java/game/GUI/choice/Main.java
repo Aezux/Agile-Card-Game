@@ -1,4 +1,4 @@
-package main.java.game.GUI.choice;
+package game.GUI.choice;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -1,7 +1,7 @@
-package main.java.game.GUI.welcome;
+package game.GUI.welcome;
 
-import main.java.game.backend.ImageFinder;
-import main.java.game.backend.PointsKeeperSingleton;
+import game.backend.ImageFinder;
+import game.backend.PointsKeeperSingleton;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

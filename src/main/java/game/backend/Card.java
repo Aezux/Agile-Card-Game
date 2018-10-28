@@ -1,4 +1,4 @@
-package main.java.game.backend;
+package game.backend;
 
 /* Class for a single card */
 public class Card {

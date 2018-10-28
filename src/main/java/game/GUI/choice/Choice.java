@@ -1,4 +1,4 @@
-package main.java.game.GUI.choice;
+package game.GUI.choice;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.geometry.Point2D;
 import java.util.ArrayList;
-import main.java.game.backend.ImageFinder;
+import game.backend.ImageFinder;
 
 public class Choice extends Application{
 
@@ -171,6 +171,10 @@ public class Choice extends Application{
             }
         }
         return count == 1;
+    }
+    
+    public String getTopic() {
+    	return topicChosen;
     }
 
 }

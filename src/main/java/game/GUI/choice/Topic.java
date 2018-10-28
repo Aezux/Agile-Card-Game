@@ -1,4 +1,4 @@
-package main.java.game.GUI.choice;
+package game.GUI.choice;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;

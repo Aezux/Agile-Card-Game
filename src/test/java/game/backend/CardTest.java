@@ -1,9 +1,9 @@
-package test.java.game.backend;
+package game.backend;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import main.java.game.backend.Card;
+import game.backend.Card;
 
 /* Tests the Card.java class */
 public class CardTest {

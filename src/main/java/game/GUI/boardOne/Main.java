@@ -1,4 +1,4 @@
-package main.java.game.GUI.boardOne;
+package game.GUI.boardOne;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

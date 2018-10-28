@@ -1,10 +1,10 @@
-package main.java.game.GUI;
+package game.GUI;
 
 import java.util.ArrayList;
-import main.java.game.backend.ImageFinder;
-import main.java.game.interfaces.ShapeComponent;
-import main.java.game.backend.Question;
-import main.java.game.backend.Card;
+import game.backend.ImageFinder;
+import game.interfaces.ShapeComponent;
+import game.backend.Question;
+import game.backend.Card;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -69,11 +69,11 @@ public class Board extends Application{
 		for (int i = 0; i < 6; i++) {				
 			Card card = question.getCard("27");
 	
-			System.out.println("Question: " + card.getQuestion());
-			System.out.println("Choices: " + card.getChoices());
-			System.out.println("Answer: " + card.getAnswer());
-			System.out.println("Points: " + card.getPoints());
-			System.out.println("Category:" + card.getCategory());
+//			System.out.println("Question: " + card.getQuestion());
+//			System.out.println("Choices: " + card.getChoices());
+//			System.out.println("Answer: " + card.getAnswer());
+//			System.out.println("Points: " + card.getPoints());
+//			System.out.println("Category:" + card.getCategory());
 			
 			CardComponent cardComponent = new CardComponent(new Point2D(x, y), 100, 150, card);
 			root.getChildren().add(cardComponent.getRect());

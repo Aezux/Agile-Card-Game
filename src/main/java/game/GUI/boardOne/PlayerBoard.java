@@ -1,7 +1,7 @@
-package main.java.game.GUI.boardOne;
+package game.GUI.boardOne;
 
-import main.java.game.backend.ImageFinder;
-import main.java.game.interfaces.PlayerComponent;
+import game.backend.ImageFinder;
+import game.interfaces.PlayerComponent;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
