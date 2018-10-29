@@ -48,7 +48,19 @@ public class PlayerBoard2 extends Application {
 		
 		// get the current Card with the player's question here:
 //		return "This is the current question. Who played the role?";
-		return card.getQuestion() + "\n" + "choices: " + card.getChoices();
+		
+		
+		/* makes the question fit inside the box */
+		String question = "";		
+		String[] array = card.getQuestion().split(" ");
+		for (int i=0; i<array.length; ++i) {
+			question += array[i] + " ";
+			if (i % 5 == 0 && i != 0) {
+				question += "\n";
+			}
+		}
+		
+		return "" + question + "\n\n" + "choices: " + card.getChoices();
 	}
 	
 	public void getCard(Card card) {
@@ -61,7 +73,8 @@ public class PlayerBoard2 extends Application {
 		return answer.equals(card.getAnswer());
 	}
 
-	public Scene getScene() {
+	public Scene getScene(Card card) {
+		this.card = card;
 		
 		root = new AnchorPane();
 		ImageFinder image = new ImageFinder();

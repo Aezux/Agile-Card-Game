@@ -55,25 +55,20 @@ public class Main extends Application{
 		@Override
 		public void handle(ActionEvent event) {
 			if (welcome.getValidInput()) {
+				
 				window.setScene(choice.getScene());
 				choice.startScene();
 				choice.move();
 				window.show();
 				
-//				if (choice.getTopic() != null) {
-//					Question question = new Question();
-//					Card card = question.getCard(choice.getTopic());
-//					
-//					window.setScene(board2.getScene());
-////					primaryStage.setTitle("Enter an Answer");
-////					primaryStage.setScene(getScene());
-//					board2.getCard(card);
-//					board2.startScene();
-////					board2.show();
-//					
-//					window.show();
-//					System.out.println("main: " + choice.getTopic());
-//				}
+				if (choice.getTopic() != null) {
+					Question question = new Question();
+					Card card = question.getCard(choice.getTopic());
+					window.setScene(board2.getScene(card));
+					window.setTitle("Enter an Answer");
+					board2.startScene();
+					window.show();
+				}
 			}
 			
 		}
