@@ -38,7 +38,7 @@ public class GameWinner extends Application {
 	private String getWinner() {
 		String winningTeam = PointsKeeperSingleton.getUniqueInstance().getWinner();
 		int points = PointsKeeperSingleton.getUniqueInstance().getTeamScore(winningTeam);
-		String result = winningTeam + " you have won the game with \n" + points + " story points.";
+		String result = winningTeam + " - you have won the game with \n" + points + " story points.";
 		return result;
 	}
 	
@@ -48,7 +48,8 @@ public class GameWinner extends Application {
 		ImageView imageView = new ImageView(image.getImage("background.jpg", scale, dimensions+7));
 		
 		// display the congratulations text
-		Text congratsLabel = new Text("Congratulations");
+		String winningTeam = PointsKeeperSingleton.getUniqueInstance().getWinner();
+		Text congratsLabel = new Text("Congratulations " + winningTeam);
 		congratsLabel.setFill(Color.WHITE);
 		congratsLabel.setFont(Font.font(40));
 		congratsLabel.setTranslateX(120);
