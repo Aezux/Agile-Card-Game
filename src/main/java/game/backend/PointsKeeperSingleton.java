@@ -13,6 +13,7 @@ import java.util.Set;
  */
 public class PointsKeeperSingleton {
 	
+	private final int startingPoints = 200;
 	private static PointsKeeperSingleton instance;
 	private Map<String, Integer> teams;
 	
@@ -39,11 +40,14 @@ public class PointsKeeperSingleton {
 	}
 	
 	public int getTeamScore(String team) {
+		if (getWinner().equals("None")) {
+			return startingPoints;
+		}
 		return teams.get(team).intValue();
 	}
 	
 	public void addTeam(String team) {
-		teams.put(team, 0);
+		teams.put(team, startingPoints);
 	}
 	
 	/**
