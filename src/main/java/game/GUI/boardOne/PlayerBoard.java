@@ -1,6 +1,7 @@
 package game.GUI.boardOne;
 
 import game.backend.ImageFinder;
+import game.backend.LabelMaker;
 import game.interfaces.PlayerComponent;
 import javafx.application.Application;
 import javafx.geometry.Point2D;
@@ -24,6 +25,7 @@ public class PlayerBoard extends Application {
 
     ArrayList<PlayerComponent> players;
     String playerChosen;
+    LabelMaker labelMaker = new LabelMaker();
 
     /* Launches the GUI */
     public static void main(String[] args) {
@@ -31,8 +33,11 @@ public class PlayerBoard extends Application {
     }
 
     /* Starts the program */
-    public void start(Stage oceanStage) throws Exception {
-        // Nothing happens when you run this class
+    public void start(Stage playerStage) throws Exception {
+    	playerStage.setTitle("Player Board");
+    	playerStage.setScene(getScene());
+    	playerStage.show();
+        startScene();
     }
 
     public Scene getScene(){
@@ -41,13 +46,8 @@ public class PlayerBoard extends Application {
 
         ImageFinder image = new ImageFinder();
         ImageView imageView = new ImageView(image.getImage("background.jpg", scale, dimensions+7));
-
-        Label boardLabel = new Label("Draw Cards");
-        boardLabel.setTextFill(Color.WHITE);
-        boardLabel.setScaleX(6);
-        boardLabel.setScaleY(6);
-        boardLabel.setTranslateX(475);
-        boardLabel.setTranslateY(50);
+        
+        Label boardLabel = labelMaker.createLabel("Draw Cards", Color.WHITE, 6, 6, 475, 50);
 
         root.getChildren().addAll(imageView, boardLabel);
 
@@ -59,44 +59,28 @@ public class PlayerBoard extends Application {
     public void startScene(){
         players = new ArrayList<PlayerComponent>();
 
+        /* Player 1 */
         PlayerComponent playerOne = new PlayerComponent(new Point2D(30,615), "Player 1");
-        players.add(playerOne);
-        Label playerOneLabel = new Label("Player 1");
-        playerOneLabel.setTextFill(Color.BLACK);
-        playerOneLabel.setScaleX(2);
-        playerOneLabel.setScaleY(2);
-        playerOneLabel.setTranslateX(87);
-        playerOneLabel.setTranslateY(745);
+        Label playerOneLabel = labelMaker.createLabel("Player 1", Color.BLACK, 2, 2, 87, 745);
         root.getChildren().addAll(playerOne.getPlayerSpace(), playerOneLabel);
-
+        players.add(playerOne);
+        
+        /* Player 2 */
         PlayerComponent playerTwo = new PlayerComponent(new Point2D(300,615), "Player 2");
-        players.add(playerTwo);
-        Label playerTwoLabel = new Label("Player 2");
-        playerTwoLabel.setTextFill(Color.BLACK);
-        playerTwoLabel.setScaleX(2);
-        playerTwoLabel.setScaleY(2);
-        playerTwoLabel.setTranslateX(357);
-        playerTwoLabel.setTranslateY(745);
+        Label playerTwoLabel = labelMaker.createLabel("Player 2", Color.BLACK, 2, 2, 357, 745);
         root.getChildren().addAll(playerTwo.getPlayerSpace(), playerTwoLabel);
-
-        PlayerComponent playerThree = new PlayerComponent(new Point2D(560,615), "Player 3");
-        players.add(playerThree);
-        Label playerThreeLabel = new Label("Player 3");
-        playerThreeLabel.setTextFill(Color.BLACK);
-        playerThreeLabel.setScaleX(2);
-        playerThreeLabel.setScaleY(2);
-        playerThreeLabel.setTranslateX(617);
-        playerThreeLabel.setTranslateY(745);
+        players.add(playerTwo);
+        
+        /* Player 3 */
+        PlayerComponent playerThree = new PlayerComponent(new Point2D(560,615), "Player 3");        
+        Label playerThreeLabel = labelMaker.createLabel("Player 3", Color.BLACK, 2, 2, 617, 745);
         root.getChildren().addAll(playerThree.getPlayerSpace(), playerThreeLabel);
-
+        players.add(playerThree);
+        
+        /* Player 4 */
         PlayerComponent playerFour = new PlayerComponent(new Point2D(820,615), "Player 4");
-        players.add(playerFour);
-        Label playerFourLabel = new Label("Player 4");
-        playerFourLabel.setTextFill(Color.BLACK);
-        playerFourLabel.setScaleX(2);
-        playerFourLabel.setScaleY(2);
-        playerFourLabel.setTranslateX(877);
-        playerFourLabel.setTranslateY(745);
+        Label playerFourLabel = labelMaker.createLabel("Player 4", Color.BLACK, 2, 2, 877, 745);
         root.getChildren().addAll(playerFour.getPlayerSpace(), playerFourLabel);
+        players.add(playerFour);
     }
 }

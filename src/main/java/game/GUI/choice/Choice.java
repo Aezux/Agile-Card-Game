@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.geometry.Point2D;
 import java.util.ArrayList;
 import game.backend.ImageFinder;
+import game.backend.LabelMaker;
 
 public class Choice extends Application{
 
@@ -26,6 +27,7 @@ public class Choice extends Application{
 
     ArrayList<Topic> topics;
     String topicChosen;
+    LabelMaker labelMaker = new LabelMaker();
 
     /* Launches the GUI */
     public static void main(String[] args) {
@@ -33,8 +35,12 @@ public class Choice extends Application{
     }
 
     /* Starts the program */
-    public void start(Stage oceanStage) throws Exception {
-        // Nothing happens when you run this class
+    public void start(Stage cardStage) throws Exception {
+    	cardStage.setTitle("Choice Scene");
+		cardStage.setScene(getScene());
+		cardStage.show();
+		startScene();
+		move();
     }
 
     public Scene getScene() {
@@ -46,22 +52,12 @@ public class Choice extends Application{
         ImageView imageView = new ImageView(image.getImage("background.jpg", scale, dimensions+7));
 
         /* Sprint Planning label */
-        Label sprintLabel = new Label("Sprint Planning");
-        sprintLabel.setTextFill(Color.WHITE);
-        sprintLabel.setScaleX(6);
-        sprintLabel.setScaleY(6);
-        sprintLabel.setTranslateX(475);
-        sprintLabel.setTranslateY(50);
+        Label sprintLabel = labelMaker.createLabel("Sprint Planning", Color.WHITE, 6, 6, 475, 50);
 
         /* Backlog label */
-        Label backlogLabel = new Label("Pick a topic from the backlog");
-        backlogLabel.setTextFill(Color.WHITE);
-        backlogLabel.setScaleX(3);
-        backlogLabel.setScaleY(4);
-        backlogLabel.setTranslateX(426);
-        backlogLabel.setTranslateY(120);
+        Label backlogLabel = labelMaker.createLabel("Pick a topic from the backlog", Color.WHITE, 3, 4, 426, 120);
 
-        /* Button label */
+        /* Button */
         Button button = new Button("Select choice");
         button.setScaleX(5);
         button.setScaleY(5);
@@ -92,47 +88,27 @@ public class Choice extends Application{
 
         /* Makes the animals topic */
         Topic animals = new Topic(new Point2D(10,300), "27");
-        topics.add(animals);
-        Label animalsLabel = new Label("Animals");
-        animalsLabel.setTextFill(Color.BLACK);
-        animalsLabel.setScaleX(2);
-        animalsLabel.setScaleY(2);
-        animalsLabel.setTranslateX(90);
-        animalsLabel.setTranslateY(430);
+        Label animalsLabel = labelMaker.createLabel("Animals", Color.BLACK, 2, 2, 90, 430);
         root.getChildren().addAll(animals.getCard(), animalsLabel);
-
+        topics.add(animals);
+        
         /* Makes the mythology topic */
         Topic mythology = new Topic(new Point2D(270,300), "20");
-        topics.add(mythology);
-        Label mythologyLabel = new Label("Mythology");
-        mythologyLabel.setTextFill(Color.BLACK);
-        mythologyLabel.setScaleX(2);
-        mythologyLabel.setScaleY(2);
-        mythologyLabel.setTranslateX(350);
-        mythologyLabel.setTranslateY(430);
+        Label mythologyLabel = labelMaker.createLabel("Mythology", Color.BLACK, 2, 2, 350, 430);
         root.getChildren().addAll(mythology.getCard(), mythologyLabel);
-
+        topics.add(mythology);
+        
         /* Makes the geography topic */
         Topic geography = new Topic(new Point2D(530,300), "22");
-        topics.add(geography);
-        Label geographyLabel = new Label("Geography");
-        geographyLabel.setTextFill(Color.BLACK);
-        geographyLabel.setScaleX(2);
-        geographyLabel.setScaleY(2);
-        geographyLabel.setTranslateX(610);
-        geographyLabel.setTranslateY(430);
+        Label geographyLabel = labelMaker.createLabel("Geography", Color.BLACK, 2, 2, 610, 430);
         root.getChildren().addAll(geography.getCard(), geographyLabel);
-
+        topics.add(geography);
+        
         /* Makes the sports topic */
         Topic sports = new Topic(new Point2D(790,300), "21");
-        topics.add(sports);
-        Label sportsLabel = new Label("Sports");
-        sportsLabel.setTextFill(Color.BLACK);
-        sportsLabel.setScaleX(2);
-        sportsLabel.setScaleY(2);
-        sportsLabel.setTranslateX(870);
-        sportsLabel.setTranslateY(430);
+        Label sportsLabel = labelMaker.createLabel("Sports", Color.BLACK, 2, 2, 870, 430);
         root.getChildren().addAll(sports.getCard(), sportsLabel);
+        topics.add(sports);
     }
 
     /* Allows you to move the dots and containers */
@@ -173,6 +149,7 @@ public class Choice extends Application{
         return count == 1;
     }
     
+    /* Returns the topic number */
     public String getTopic() {
     	return topicChosen;
     }
