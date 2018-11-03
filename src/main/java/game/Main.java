@@ -8,7 +8,9 @@ import game.GUI.boardTwo.PlayerBoard2;
 import java.util.ArrayList;
 
 import game.backend.Card;
+import game.backend.PointsKeeperSingleton;
 import game.backend.Question;
+import game.backend.Token;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,6 +24,7 @@ public class Main extends Application{
 	Choice choice;
 	PlayerBoard2 board2;
 	Stage window;
+	PointsKeeperSingleton teams;
 
 	static ArrayList<Card> handDealt = new ArrayList<Card>();
 	Point2D clickPoint;
@@ -33,15 +36,17 @@ public class Main extends Application{
 	@Override
 	public void start(Stage window) throws Exception {
 		this.window = window;
-		window.setTitle("Agile Scrum Master");
+		window.setTitle("Agile Card Game");
 		
+		/* Adds both teams */
+		teams = PointsKeeperSingleton.getUniqueInstance();
+		teams.addTeam("team1");
+		teams.addTeam("team2");
 		
 		welcome = new Welcome();
 		board = new Board();
 		choice = new Choice();
 		board2 = new PlayerBoard2();
-		
-		
 		
 		
 		window.addEventHandler(ActionEvent.ACTION, actionHandler);
@@ -57,14 +62,21 @@ public class Main extends Application{
 			if (welcome.getValidInput()) {
 				
 				window.setScene(choice.getScene());
+				window.setTitle("Enter your topic choice");
 				choice.startScene();
 				choice.move();
 				window.show();
 				
 				if (choice.getTopic() != null) {
-					Question question = new Question();
-					Card card = question.getCard(choice.getTopic());
-					window.setScene(board2.getScene(card));
+					Question question = new Question(new Token().getToken());
+					ArrayList<Card> cards = new ArrayList<Card>();
+					
+					/* Add 4 cards to the ArrayList */
+					for (int i=0; i<4; ++i) {
+						cards.add(question.getCard(choice.getTopic()));
+					}
+					
+					window.setScene(board2.getScene(cards, "team1"));
 					window.setTitle("Enter an Answer");
 					board2.startScene();
 					window.show();
@@ -74,5 +86,5 @@ public class Main extends Application{
 		}
 		
 	};
-	
+
 }

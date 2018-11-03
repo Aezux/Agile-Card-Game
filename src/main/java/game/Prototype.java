@@ -38,7 +38,7 @@ public class Prototype {
 			default: catagory = null; break;
 		}
 		
-		Question question = new Question();
+		Question question = new Question(new Token().getToken());
 		Card card = question.getCard(catagory);
 		
 		System.out.println("question: " + card.getQuestion() + ", worth: " + card.getPoints());

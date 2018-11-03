@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import game.backend.ImageFinder;
 import game.interfaces.ShapeComponent;
 import game.backend.Question;
+import game.backend.Token;
 import game.backend.Card;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -64,7 +65,7 @@ public class Board extends Application{
 		
 		int x = 50;
 		int y = 200;
-		Question question = new Question();
+		Question question = new Question(new Token().getToken());
 
 		for (int i = 0; i < 6; i++) {				
 			Card card = question.getCard("27");

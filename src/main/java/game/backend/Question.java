@@ -13,12 +13,14 @@ import java.util.Random;
 
 public class Question {
 	String catagory;
+	String token;
 	int points;
 	
 	Random rand = new Random();
 	
 	/* Constructor */
-	public Question() {
+	public Question(String token) {
+		this.token = token;
 		points = 10;
 	}
 	
@@ -50,7 +52,7 @@ public class Question {
 		int choiceEnd = result.indexOf("]", choiceStart);
 		String[] choices = ((result.substring(choiceStart, choiceEnd)).replace("\"", "")).split(",");
 		
-		/* Converts the array to an Arraylist */
+		/* Converts the array to an ArrayList */
 		List<String> list = new ArrayList<>();
 		list.add(answer);
 		for (String x : choices) {
@@ -64,14 +66,13 @@ public class Question {
 		return new Card(question, answer, choice, cardPoints, category);
 	}
 	
-	
 	/* Calls the API and gets back a question */
 	private String triviaResults(String catagory, String difficulty) {
 		String question = null;
 		
 		try {
 			/* Puts together the url */
-			String api_url = "https://opentdb.com/api.php?amount=1&category=" + catagory + "&difficulty=" + difficulty + "&type=multiple";
+			String api_url = "https://opentdb.com/api.php?amount=1" + "&token=" + token + "&category=" + catagory + "&difficulty=" + difficulty + "&type=multiple";
 			URL url = new URL(api_url);
 
 			/* Get the data from the url */
@@ -106,5 +107,5 @@ public class Question {
 	private int getRandomNumber(int maxRandom) {
 		return rand.nextInt(maxRandom);
 	}
-	
+
 }

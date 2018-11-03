@@ -28,9 +28,10 @@ public class PlayerComponent {
         return rectangle;
     }
 
-    //Returns if the user is currently highlighted with a question
-    public boolean checkQuestion() {
-        return hasQuestion;
+    //updates the players turn
+    public void playerTurn() {
+        if (hasQuestion) hasQuestion = false;
+        else hasQuestion = true;
     }
 
     // Changes outline if player has the current question
