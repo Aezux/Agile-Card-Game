@@ -2,6 +2,7 @@ package game.GUI.boardTwo;
 
 import java.util.ArrayList;
 
+import game.GUI.SprintEnd.SprintEnd;
 import game.backend.Card;
 import game.backend.ImageFinder;
 import game.backend.LabelMaker;
@@ -32,14 +33,17 @@ public class PlayerBoard2 extends Application {
 	private final int scale = 50;
 	private Pane root;
 	private Scene scene;
+	private Stage primaryStage;
 	private String team;
 	private ArrayList<PlayerComponent> players;
 	private ArrayList<Card> cards;
 	private LabelMaker labelMaker = new LabelMaker();
 	private PointsKeeperSingleton teams = PointsKeeperSingleton.getUniqueInstance();
+	private SprintEnd sprintEnd = new SprintEnd();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		this.primaryStage = primaryStage;
 		cards = new ArrayList<Card>();
 		Question question = new Question(new Token().getToken());
 		
@@ -64,7 +68,7 @@ public class PlayerBoard2 extends Application {
 	private Text getQuestion(int playerNum) {
 		
 		/* Makes the question fit inside the box */
-		String question = "";		
+		String question = "";
 		String[] questionArray = cards.get(playerNum).getQuestion().split(" ");
 		for (int i=0; i<questionArray.length; ++i) {
 			question += questionArray[i] + " ";
@@ -156,7 +160,10 @@ public class PlayerBoard2 extends Application {
 	/* Shows the scene for each player */
 	private void PlayerTurn(int player) {
 		
-		if (player == 4) return;
+		if (player == 4) {
+			primaryStage.setScene(sprintEnd.getScene(team));
+			return;
+		};
 		
 		if (player > 0) {
 			players.get(player - 1).playerTurn();
@@ -179,16 +186,7 @@ public class PlayerBoard2 extends Application {
 			public void handle(ActionEvent e) {
 				if (answerField.getText() != null && !answerField.getText().isEmpty()) {
 					boolean result = checkAnswer(answerField.getText(), player);
-					if (result) {
-						System.out.println("Correct!");
-						teams.addPointsToScore(team, cards.get(player).getPoints());
-						System.out.println("points: " + teams.getTeamScore(team));
-					}
-					else {
-						System.out.println("Incorrect answer.");
-						System.out.println("points: " + teams.getTeamScore(team));
-					}
-					
+					if (result) teams.removePointsFromScore(team, cards.get(player).getPoints());
 					root.getChildren().removeAll(questionLabel, answerField, button);
 					PlayerTurn(player+1);
 				}

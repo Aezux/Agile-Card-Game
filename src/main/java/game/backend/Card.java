@@ -20,40 +20,21 @@ public class Card {
     
     /* Constructor */
     public Card(String question, String answer, String choices, int points, String category) {
+    	
     	/* Makes sure the the user actually enters a question */
-    	if (question.length() > 0) {
-    		this.question = question;
-    	} else {
-    		this.question = null;
-    	}
+    	this.question = (question.length() > 0) ? question : null;
     	
     	/* Makes sure the the user actually enters a answer */
-    	if (answer.length() > 0) {
-    		this.answer = answer;
-    	} else {
-    		this.answer = null;
-    	}
+    	this.answer = (answer.length() > 0) ? answer : null;
     	
     	/* Makes sure the the user actually enters choices */
-    	if (choices.length() > 0) {
-    		this.choices = choices;
-    	} else {
-    		this.choices = null;
-    	}
+    	this.choices = (choices.length() > 0) ? choices : null;
     	
     	/* Makes sure the the user actually enters a choice */
-    	if (category.length() > 0) {
-    		this.category = category;
-    	} else {
-    		this.category = null;
-    	}
+    	this.category = (category.length() > 0) ? category : null;
     	
     	/* Makes sure the the user actually enters valid points */
-    	if (points < 51 && points > -51) {
-    		this.points = points;
-    	} else {
-    		this.points = 0;
-    	}
+    	this.points = (points < 51 && points > -51) ? points : 0;
     }
 
     /* Returns the question */

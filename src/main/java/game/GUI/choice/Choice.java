@@ -52,7 +52,7 @@ public class Choice extends Application{
         ImageView imageView = new ImageView(image.getImage("background.jpg", scale, dimensions+7));
 
         /* Sprint Planning label */
-        Label sprintLabel = labelMaker.createLabel("Sprint Planning", Color.WHITE, 6, 6, 475, 50);
+        Label sprintLabel = labelMaker.createLabel("Sprint Planning", Color.ORANGE, 6, 6, 475, 50);
 
         /* Backlog label */
         Label backlogLabel = labelMaker.createLabel("Pick a topic from the backlog", Color.WHITE, 3, 4, 426, 120);

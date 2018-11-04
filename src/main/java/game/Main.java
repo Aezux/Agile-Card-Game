@@ -3,6 +3,7 @@ package game;
 import game.GUI.choice.Choice;
 import game.GUI.welcome.Welcome;
 import game.GUI.Board;
+import game.GUI.SprintEnd.SprintEnd;
 import game.GUI.boardTwo.PlayerBoard2;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Main extends Application{
 	Board board;
 	Choice choice;
 	PlayerBoard2 board2;
+	SprintEnd sprintEnd;
 	Stage window;
 	PointsKeeperSingleton teams;
 
