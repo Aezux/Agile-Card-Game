@@ -15,6 +15,7 @@ public class Main extends Application{
         boardStage.setScene(board.getScene());
         boardStage.show();
         board.startScene();
+        
     }
 
 }

@@ -63,10 +63,10 @@ public class Choice extends Application{
 
         /* Button label */
         Button button = new Button("Select choice");
-        button.setScaleX(5);
-        button.setScaleY(5);
-        button.setTranslateX(475);
-        button.setTranslateY(750);
+        button.setScaleX(3);
+        button.setScaleY(3);
+        button.setTranslateX(426);
+        button.setTranslateY(200);
 
         /* User clicks the button */
         button.setOnAction(new EventHandler<ActionEvent>() {
