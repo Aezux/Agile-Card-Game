@@ -30,6 +30,7 @@ public class Main extends Application{
 
 	static ArrayList<Card> handDealt = new ArrayList<Card>();
 	Point2D clickPoint;
+	boolean firstTime = true;
 	
 	public static void main(String args[]) {
 		launch(args);
@@ -49,7 +50,8 @@ public class Main extends Application{
 		board = new Board();
 		choice = new Choice();
 		board2 = new PlayerBoard2();
-		
+                
+                		
 		
 		window.addEventHandler(ActionEvent.ACTION, actionHandler);
 				
@@ -61,27 +63,22 @@ public class Main extends Application{
 
 		@Override
 		public void handle(ActionEvent event) {
-			if (welcome.getValidInput()) {
+			if (welcome.getValidInput() && firstTime) {
+
+				try {
+					choice.start(window);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 				
-				window.setScene(choice.getScene());
-				window.setTitle("Enter your topic choice");
-				choice.startScene();
-				choice.move();
-				window.show();
-				
-				if (choice.getTopic() != null) {
-					Question question = new Question(new Token().getToken());
-					ArrayList<Card> cards = new ArrayList<Card>();
-					
-					/* Add 4 cards to the ArrayList */
-					for (int i=0; i<4; ++i) {
-						cards.add(question.getCard(choice.getTopic()));
-					}
-					
-					window.setScene(board2.getScene(cards, "team1"));
-					window.setTitle("Enter an Answer");
-					board2.startScene();
-					window.show();
+			}
+			
+			if (choice.getTopic() != null && firstTime) {
+				try {
+					board2.start(window);
+					firstTime = false;
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 			

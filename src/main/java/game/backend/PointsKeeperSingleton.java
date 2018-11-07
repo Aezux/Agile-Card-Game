@@ -16,6 +16,7 @@ public class PointsKeeperSingleton {
 	private final int startingPoints = 200;
 	private static PointsKeeperSingleton instance;
 	private Map<String, Integer> teams;
+	private Map<String, Player> teamPlayers = new HashMap<>();
 	
 	static {
 		instance = new PointsKeeperSingleton();
@@ -27,6 +28,10 @@ public class PointsKeeperSingleton {
 	
 	public static PointsKeeperSingleton getUniqueInstance() {
 		return instance;
+	}
+
+	public void addPlayerToTeam(String team, Player player){
+		teamPlayers.put(team, player);
 	}
 	
 	public void addPointsToScore(String team, int points) {
