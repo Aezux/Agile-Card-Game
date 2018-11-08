@@ -28,6 +28,10 @@ public class chooseTeam extends Application {
     private Pane root;
     private Scene scene;
     private boolean validInput = false;
+    
+    public static void main(String[] args) {
+    	launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {

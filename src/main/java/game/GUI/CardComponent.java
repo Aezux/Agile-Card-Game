@@ -55,6 +55,11 @@ public class CardComponent implements ShapeComponent {
 	public Color getColor(){
 		return color;
 	}
+	
+	//Returns card
+	public Card getCard() {
+		return card;
+	}
 		
 	
 	//Makes the Card movable, so that the user can drag and drop it into their Hand

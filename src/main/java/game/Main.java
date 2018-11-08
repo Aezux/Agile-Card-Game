@@ -4,6 +4,7 @@ import game.GUI.choice.Choice;
 import game.GUI.welcome.Welcome;
 import game.GUI.Board;
 import game.GUI.SprintEnd.SprintEnd;
+import game.GUI.boardOne.PlayerBoard;
 import game.GUI.boardTwo.PlayerBoard2;
 
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public class Main extends Application{
 	Welcome welcome;
 	Board board;
 	Choice choice;
-	PlayerBoard2 board2;
+	PlayerBoard board1;
+	PlayerBoard2 board2;	
 	SprintEnd sprintEnd;
 	Stage window;
 	PointsKeeperSingleton teams;
@@ -49,6 +51,7 @@ public class Main extends Application{
 		welcome = new Welcome();
 		board = new Board();
 		choice = new Choice();
+		board1 = new PlayerBoard();
 		board2 = new PlayerBoard2();
                 
                 		
@@ -66,6 +69,7 @@ public class Main extends Application{
 			if (welcome.getValidInput() && firstTime) {
 
 				try {
+					
 					choice.start(window);
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -75,7 +79,7 @@ public class Main extends Application{
 			
 			if (choice.getTopic() != null && firstTime) {
 				try {
-					board2.start(window);
+					board1.start(window);
 					firstTime = false;
 				} catch (Exception e) {
 					e.printStackTrace();

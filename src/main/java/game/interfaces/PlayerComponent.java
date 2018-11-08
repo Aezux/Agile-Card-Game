@@ -1,5 +1,9 @@
 package game.interfaces;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+import game.backend.Card;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -8,6 +12,7 @@ public class PlayerComponent {
     Rectangle rectangle;
     boolean hasQuestion;
     String player;
+    LinkedList<Card> cardsDealt = new LinkedList<Card>();
 
 
     public PlayerComponent(Point2D pos, String player) {
@@ -58,5 +63,24 @@ public class PlayerComponent {
     public boolean contains(double x, double y) {
         return rectangle.contains(x, y);
     }
-
+    
+//    Add to card to the LinkedList
+    public void addCard(Card card) {
+    	 this.cardsDealt.add(card);
+    }
+    
+    //Returns a card 
+    public Card removeCard() {
+    	return cardsDealt.remove();
+    }
+    
+    //Sets the cards dealt
+    public void setCardsDealt(LinkedList<Card> cards) {
+    	cardsDealt = cards;
+    }
+    
+//    gets  the cards dealt
+    public Queue<Card> getCardsDealt(){
+    	return cardsDealt;
+    }
 }

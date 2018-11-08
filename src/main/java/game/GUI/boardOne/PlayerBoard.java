@@ -50,11 +50,10 @@ public class PlayerBoard extends Application {
 
     /* Starts the program */
     public void start(Stage boardStage) throws Exception {
-        PlayerBoard board = new PlayerBoard();
         boardStage.setTitle("Player Board");
-        boardStage.setScene(board.getScene());
+        boardStage.setScene(getScene());
         boardStage.show();
-        board.startScene();
+        startScene();
     }
 
     public Scene getScene(){
@@ -150,8 +149,18 @@ public class PlayerBoard extends Application {
 
                 case("MOUSE_RELEASED"):
                     if (currentComponent != null && currentComponent instanceof CardComponent) {
-//						TODO: Still need to implement code here for when they release the card on a Player
-
+                    	
+                    	//Adds card to the list of card the player has been dealt                    	
+                    	for (PlayerComponent player : players) {
+                    		if(player.contains(clickPoint.getX(), clickPoint.getY())) {
+                    			//Casting the object as a CardComponent
+                    			CardComponent cardComp = (CardComponent)currentComponent; 
+                    			player.addCard(cardComp.getCard());
+                    			//Removes the card from view 
+                    			root.getChildren().remove(cardComp.getRect());
+                    			break;
+                    		}
+                    	}
 
 //						Puts the card back to where it was when it was initially created
                         ((CardComponent)currentComponent).getRect().setX(initialPositionX);
@@ -200,4 +209,5 @@ public class PlayerBoard extends Application {
         }
         return currentComponent;
     }
+    
 }

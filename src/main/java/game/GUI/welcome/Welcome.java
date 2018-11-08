@@ -96,11 +96,16 @@ public class Welcome extends Application {
 					try {
 						actionTargetText.setText("");
 						result = Integer.parseInt(answerField.getText());
-						initializeTeams(result);
-						validInput = true;
-						System.out.println(validInput);
+						if (result >=4 && result <= 6) {
+							initializeTeams(result);
+							validInput = true;
+							System.out.println(validInput);
+						}else {
+							actionTargetText.setText("Please enter a number between 4 and 6");
+						}
+						
 					} catch (Exception exception) {
-						actionTargetText.setText("Please enter a number.");
+						actionTargetText.setText("Please enter a number between 4 and 6.");
 					}
 				}
 			}
