@@ -37,20 +37,23 @@ public class Question {
 		int cardPoints = points;
 		points = 10;
 		
+		StringBuffer bufferedResult = new StringBuffer(result);
+		
 		/* Parses for the question */
-		int questionStart = result.indexOf("question") + 11;
-		int questionEnd = result.indexOf("correct_answer", questionStart) - 3;
-		String question = result.substring(questionStart, questionEnd);
+		int questionStart = bufferedResult.indexOf("question") + 11;
+		int questionEnd = bufferedResult.indexOf("correct_answer", questionStart) - 3;
+		String question = bufferedResult.substring(questionStart, questionEnd);
 		
 		/* Parses for the answer */
-		int answerStart = result.indexOf("correct_answer") + 17;
-		int answerEnd = result.indexOf("incorrect_answers", answerStart) - 3;
-		String answer = result.substring(answerStart, answerEnd);
+		int answerStart = bufferedResult.indexOf("correct_answer") + 17;
+		int answerEnd = bufferedResult.indexOf("incorrect_answers", answerStart) - 3;
+		String answer = bufferedResult.substring(answerStart, answerEnd);
 		
 		/* Parses for the choices and randomly places the answer within them */
-		int choiceStart = result.indexOf("incorrect_answers") + 20;
-		int choiceEnd = result.indexOf("]", choiceStart);
-		String[] choices = ((result.substring(choiceStart, choiceEnd)).replace("\"", "")).split(",");
+		int choiceStart = bufferedResult.indexOf("incorrect_answers") + 20;
+		int choiceEnd = bufferedResult.indexOf("]", choiceStart);
+
+		String[] choices = bufferedResult.substring(choiceStart, choiceEnd).replace("\"", "").split(",");
 		
 		/* Converts the array to an ArrayList */
 		List<String> list = new ArrayList<>();
@@ -61,7 +64,17 @@ public class Question {
 		
 		/* Shuffles the list */
 		Collections.shuffle(list);
-		String choice = "" + list.get(0) + ", " + list.get(1) + ", " + list.get(2) + ", " + list.get(3);
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(list.get(0));
+		stringBuilder.append(", ");
+		stringBuilder.append(list.get(1));
+		stringBuilder.append(", ");
+		stringBuilder.append(list.get(2));
+		stringBuilder.append(", ");
+		stringBuilder.append(list.get(3));
+		
+		String choice = stringBuilder.toString();
 		
 		return new Card(question, answer, choice, cardPoints, category);
 	}
@@ -72,7 +85,16 @@ public class Question {
 		
 		try {
 			/* Puts together the url */
-			String api_url = "https://opentdb.com/api.php?amount=1" + "&token=" + token + "&category=" + catagory + "&difficulty=" + difficulty + "&type=multiple";
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append("https://opentdb.com/api.php?amount=1&token=");
+			stringBuilder.append(token);
+			stringBuilder.append("&category=");
+			stringBuilder.append(catagory);
+			stringBuilder.append("&difficulty=");
+			stringBuilder.append(difficulty);
+			stringBuilder.append("&type=multiple");
+			
+			String api_url = stringBuilder.toString();
 			URL url = new URL(api_url);
 
 			/* Get the data from the url */
