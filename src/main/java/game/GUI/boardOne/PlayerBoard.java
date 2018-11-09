@@ -38,7 +38,7 @@ public class PlayerBoard extends Application {
     Point2D lastPosition;
     double initialPositionX = 0;
     double initialPositionY = 0;
-
+    int numOfPlayers;
     ArrayList<PlayerComponent> players;
     String playerChosen;
     LabelMaker labelMaker = new LabelMaker();
@@ -97,12 +97,6 @@ public class PlayerBoard extends Application {
         		card = question.getCard("27");
         	}
 
-//			System.out.println("Question: " + card.getQuestion());
-//			System.out.println("Choices: " + card.getChoices());
-//			System.out.println("Answer: " + card.getAnswer());
-//			System.out.println("Points: " + card.getPoints());
-//			System.out.println("Category:" + card.getCategory());
-
             CardComponent cardComponent = new CardComponent(new Point2D(x, y), 100, 150, card);
             root.getChildren().add(cardComponent.getRect());
             handDealt.add(cardComponent);
@@ -114,34 +108,23 @@ public class PlayerBoard extends Application {
 
     public void startScene(){
         players = new ArrayList<PlayerComponent>();
-
-        /* Player 1 */
-        PlayerComponent playerOne = new PlayerComponent(new Point2D(30,615), "Player 1");
-        Label playerOneLabel = labelMaker.createLabel("Player 1", Color.BLACK, 2, 2, 87, 745);
-        root.getChildren().addAll(playerOne.getPlayerSpace(), playerOneLabel);
-        playerOne.setLabel(playerOneLabel);
-        players.add(playerOne);
         
-        /* Player 2 */
-        PlayerComponent playerTwo = new PlayerComponent(new Point2D(300,615), "Player 2");
-        Label playerTwoLabel = labelMaker.createLabel("Player 2", Color.BLACK, 2, 2, 357, 745);
-        root.getChildren().addAll(playerTwo.getPlayerSpace(), playerTwoLabel);
-        playerTwo.setLabel(playerTwoLabel);
-        players.add(playerTwo);
+        //This is is so that we can run this program on its own
+        if (numOfPlayers == 0) numOfPlayers = 4;
         
-        /* Player 3 */
-        PlayerComponent playerThree = new PlayerComponent(new Point2D(560,615), "Player 3");        
-        Label playerThreeLabel = labelMaker.createLabel("Player 3", Color.BLACK, 2, 2, 617, 745);
-        root.getChildren().addAll(playerThree.getPlayerSpace(), playerThreeLabel);
-        playerThree.setLabel(playerThreeLabel);
-        players.add(playerThree);
+        int positionX = 90;
+        double posX = 30;
+        for (int i = 0; i < this.numOfPlayers; i++) {
+        	String playerName = "Player " + (i+1);
+        	PlayerComponent player = new PlayerComponent(new Point2D(posX,615), playerName);        	
+        	Label label = labelMaker.createLabel(playerName, Color.BLACK, 2, 2, positionX, 745);
+        	root.getChildren().addAll(player.getPlayerSpace(), label);
+        	player.setLabel(label);
+        	players.add(player);
+        	positionX += 200;
+        	posX += 200;
+        }
         
-        /* Player 4 */
-        PlayerComponent playerFour = new PlayerComponent(new Point2D(820,615), "Player 4");
-        Label playerFourLabel = labelMaker.createLabel("Player 4", Color.BLACK, 2, 2, 877, 745);
-        root.getChildren().addAll(playerFour.getPlayerSpace(), playerFourLabel);
-        playerFour.setLabel(playerFourLabel);
-        players.add(playerFour);
     }
 
     EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
@@ -241,6 +224,15 @@ public class PlayerBoard extends Application {
     //Returns handDealt
     public ArrayList<CardComponent> getHandDealt() {
     	return handDealt;
+    }
+    
+    //sets number of players per team
+    public void setNumOfPlayers(int num) {
+    	this.numOfPlayers = num;
+    }
+    
+    public int getNumOfPlayers() {
+    	return this.numOfPlayers;
     }
     
 }

@@ -47,7 +47,7 @@ public class PlayerBoard2 extends Application {
 		this.primaryStage = primaryStage;
 		teams.addTeam("team1");
 		primaryStage.setTitle("Enter an Answer");
-		primaryStage.setScene(getScene(null, "team1"));
+		primaryStage.setScene(getScene(players, "team1"));
 		PlayerTurn(0);
 		primaryStage.show();
 	}
@@ -165,7 +165,7 @@ public class PlayerBoard2 extends Application {
 			public void handle(ActionEvent e) {
 				if (answerField.getText() != null && !answerField.getText().isEmpty()) {
 					boolean result = checkAnswer(answerField.getText(), card);
-					if (result) teams.removePointsFromScore(team, cards.get(player).getPoints());
+					if (result) teams.removePointsFromScore(team, card.getPoints());
 					root.getChildren().removeAll(questionLabel, answerField, button);
 					PlayerTurn(player+1);
 				}
@@ -209,6 +209,11 @@ public class PlayerBoard2 extends Application {
         playerFour.addCard(question.getCard("23"));
         playerFour.setLabel(playerFourLabel);
         players.add(playerFour);
+	}
+	
+	//sets the list of players (this is used so we can pass the list from PlayerBoard1 to PlayerBoard2)
+	public void setListofPlayers(ArrayList<PlayerComponent> players) {
+		this.players = players;
 	}
 	
 }

@@ -26,6 +26,7 @@ public class Welcome extends Application {
 	private Pane root;
 	private Scene scene;
 	private boolean validInput = false;
+	private int numPlayersPerTeam;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -100,6 +101,7 @@ public class Welcome extends Application {
 							initializeTeams(result);
 							validInput = true;
 							System.out.println(validInput);
+							numPlayersPerTeam = result;
 						}else {
 							actionTargetText.setText("Please enter a number between 4 and 6");
 						}
@@ -115,6 +117,11 @@ public class Welcome extends Application {
 				answerField, actionTargetText, button);
 		scene = new Scene(root, 1250, 900);
 		return scene;
+	}
+	
+	// returns the number of players per team
+	public int getNumPlayersPerTeam() {
+		return this.numPlayersPerTeam;
 	}
 }
 

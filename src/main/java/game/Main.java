@@ -83,7 +83,9 @@ public class Main extends Application{
 			//Set the topic and change to the next board
 			if (choice.getTopic() != null && sceneCounter == 0) {
 				try {
+					int numPlayerPerTeam = welcome.getNumPlayersPerTeam();
 					String topic = choice.getTopic();
+					board1.setNumOfPlayers(numPlayerPerTeam);
 					board1.setTopic(topic);
 					board1.start(window);
 					sceneCounter++;
@@ -108,6 +110,10 @@ public class Main extends Application{
 					//If there are no cards left to be dealt to the players, and this isn't their first time then continue 
 					if (board1.getHandDealt().isEmpty() && sceneCounter == 1) {
 						try {
+							if (board1.getPlayers() == null) {
+								System.out.println("RETURNING a NULL Value");
+							} else System.out.println("returning playes");
+							board2.setListofPlayers(board1.getPlayers());
 							board2.start(window);
 							sceneCounter++;
 						} catch (Exception e) {
