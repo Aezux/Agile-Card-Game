@@ -17,6 +17,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class Main extends Application{
@@ -29,6 +30,7 @@ public class Main extends Application{
 	SprintEnd sprintEnd;
 	Stage window;
 	PointsKeeperSingleton teams;
+	int sceneCounter = 0;
 
 	static ArrayList<Card> handDealt = new ArrayList<Card>();
 	Point2D clickPoint;
@@ -57,6 +59,7 @@ public class Main extends Application{
                 		
 		
 		window.addEventHandler(ActionEvent.ACTION, actionHandler);
+		window.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseHandler);
 				
 		window.setScene(welcome.getScene());
 		window.show();
@@ -66,7 +69,7 @@ public class Main extends Application{
 
 		@Override
 		public void handle(ActionEvent event) {
-			if (welcome.getValidInput() && firstTime) {
+			if (welcome.getValidInput() && sceneCounter == 0) {
 
 				try {
 					
@@ -77,15 +80,45 @@ public class Main extends Application{
 				
 			}
 			
-			if (choice.getTopic() != null && firstTime) {
+			//Set the topic and change to the next board
+			if (choice.getTopic() != null && sceneCounter == 0) {
 				try {
+					String topic = choice.getTopic();
+					board1.setTopic(topic);
 					board1.start(window);
-					firstTime = false;
+					sceneCounter++;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 			
+		}
+		
+	};
+	
+	EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
+
+		@Override
+		public void handle(MouseEvent mouseEvent) {
+			// TODO Auto-generated method stub
+			String eventName = mouseEvent.getEventType().getName();
+			
+			switch(eventName) {
+				case("MOUSE_RELEASED"):
+					//If there are no cards left to be dealt to the players, and this isn't their first time then continue 
+					if (board1.getHandDealt().isEmpty() && sceneCounter == 1) {
+						try {
+							board2.start(window);
+							sceneCounter++;
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					break;
+				default:
+					break;
+			}
 		}
 		
 	};

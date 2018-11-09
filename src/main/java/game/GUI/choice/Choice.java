@@ -78,7 +78,7 @@ public class Choice extends Application{
         root.getChildren().addAll(imageView, sprintLabel, backlogLabel, button);
 
         /* Box to hold everything in it */
-        scene = new Scene(root, 1050, 900);
+        scene = new Scene(root, 1250, 900);
 
         return scene;
     }
