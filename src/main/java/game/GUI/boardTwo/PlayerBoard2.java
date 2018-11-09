@@ -48,7 +48,7 @@ public class PlayerBoard2 extends Application {
 		teams.addTeam("team1");
 		primaryStage.setTitle("Enter an Answer");
 		primaryStage.setScene(getScene(players, "team1"));
-		PlayerTurn(0);
+		PlayerTurn(0, true);
 		primaryStage.show();
 	}
 	
@@ -131,48 +131,60 @@ public class PlayerBoard2 extends Application {
 	}
 	
 	public void startScene() {
-		PlayerTurn(0);
+		PlayerTurn(0, true);
 	}
 	
 	/* Shows the scene for each player */
-	private void PlayerTurn(int player) {
+	//I added the isFirstTime argument to check to make sure not to recolor the cards when this player is playing again
+	private void PlayerTurn(int player, boolean isFirstTime) {
 		
 		if (player == players.size()) {
 			primaryStage.setScene(sprintEnd.getScene(team));
 			return;
 		};
 		
-		if (player > 0) {
-			players.get(player-1).setQuestion();
-			players.get(player-1).changeColor();
+		if(isFirstTime == true) {
+			if (player > 0) {
+				players.get(player-1).setQuestion();
+				players.get(player-1).changeColor();
+			}
+			
+			players.get(player).setQuestion();
+			players.get(player).changeColor();
+		}		
+		
+		//Checks to see if the current player has any cards, if they don't just skip them
+		if (players.get(player).getCardsDealt().isEmpty()) {
+			PlayerTurn(player+1, true);
+		} else {
+			Card card = players.get(player).getCardsDealt().poll();
+			
+			Text questionLabel = getQuestion(card);
+			TextField answerField = answerBox();
+			
+			// display the button to submit an answer
+			Button button = new Button("Submit Answer");
+			button.setFont(Font.font(20));
+			button.setTranslateX(120);
+			button.setTranslateY(520);
+			button.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					if (answerField.getText() != null && !answerField.getText().isEmpty()) {
+						boolean result = checkAnswer(answerField.getText(), card);
+						if (result) teams.removePointsFromScore(team, card.getPoints());
+						root.getChildren().removeAll(questionLabel, answerField, button);
+						if (players.get(player).getCardsDealt().isEmpty()) {
+							PlayerTurn(player+1, true);
+						}
+						else PlayerTurn(player, false);
+					}
+				}
+			});
+			
+			root.getChildren().addAll(questionLabel, answerField, button);
 		}
 		
-		players.get(player).setQuestion();
-		players.get(player).changeColor();
-		
-		Card card = players.get(player).getCardsDealt().poll();
-		
-		Text questionLabel = getQuestion(card);
-		TextField answerField = answerBox();
-		
-		// display the button to submit an answer
-		Button button = new Button("Submit Answer");
-		button.setFont(Font.font(20));
-		button.setTranslateX(120);
-		button.setTranslateY(520);
-		button.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				if (answerField.getText() != null && !answerField.getText().isEmpty()) {
-					boolean result = checkAnswer(answerField.getText(), card);
-					if (result) teams.removePointsFromScore(team, card.getPoints());
-					root.getChildren().removeAll(questionLabel, answerField, button);
-					PlayerTurn(player+1);
-				}
-			}
-		});
-		
-		root.getChildren().addAll(questionLabel, answerField, button);
 	}
 	
 	private void makePlayers() {
