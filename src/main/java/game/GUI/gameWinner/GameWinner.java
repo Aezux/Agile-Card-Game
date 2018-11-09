@@ -25,10 +25,10 @@ public class GameWinner extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-//		primaryStage.setTitle("Congratulations");
-//		primaryStage.setScene(getScene());
-//		startScene();
-//		primaryStage.show();
+		primaryStage.setTitle("Congratulations");
+		primaryStage.setScene(getScene());
+		startScene();
+		primaryStage.show();
 	}
 	
 	public static void main(String[] args) {
@@ -68,7 +68,7 @@ public class GameWinner extends Application {
 		});
 		
 		root.getChildren().addAll(imageView, congratsLabel, button);
-		scene = new Scene(root, 1050, 900);
+		scene = new Scene(root, 1250, 900);
 		return scene;
 	}
 	

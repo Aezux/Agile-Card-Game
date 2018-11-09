@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javafx.stage.Stage;
+
 /**
  * 
  * A singleton object that acts as a single point of
@@ -17,6 +19,8 @@ public class PointsKeeperSingleton {
 	private static PointsKeeperSingleton instance;
 	private Map<String, Integer> teams;
 	private Map<String, Player> teamPlayers = new HashMap<>();
+	private int playersPerTeam;
+	private Stage window;
 	
 	static {
 		instance = new PointsKeeperSingleton();
@@ -75,6 +79,16 @@ public class PointsKeeperSingleton {
 		}
 		return winner;
 	}
+	
+	public void setPlayersPerTeam(int num) {
+		this.playersPerTeam = num;
+	}
+	
+	//Get the number of players per team
+	public int getPlayersPerTeam() {
+		return playersPerTeam;
+	}
+	
 }
 
 

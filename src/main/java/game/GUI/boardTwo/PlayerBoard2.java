@@ -40,6 +40,7 @@ public class PlayerBoard2 extends Application {
 	private LabelMaker labelMaker = new LabelMaker();
 	private PointsKeeperSingleton teams = PointsKeeperSingleton.getUniqueInstance();
 	private SprintEnd sprintEnd = new SprintEnd();
+	int numOfPlayers;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -105,7 +106,7 @@ public class PlayerBoard2 extends Application {
 		answerField.setFont(Font.font(20));
 		answerField.setPrefColumnCount(30);
 		answerField.setTranslateX(120);
-		answerField.setTranslateY(420);
+		answerField.setTranslateY(470);
 		answerField.setAlignment(Pos.CENTER);
 		return answerField;
 	}
@@ -149,7 +150,7 @@ public class PlayerBoard2 extends Application {
         root.getChildren().addAll(playerFour.getPlayerSpace(), playerFourLabel);
         players.add(playerFour);
 		
-		scene = new Scene(root, 1050, 900);
+		scene = new Scene(root, 1250, 900);
 		return scene;
 	}
 	
@@ -180,7 +181,7 @@ public class PlayerBoard2 extends Application {
 		Button button = new Button("Submit Answer");
 		button.setFont(Font.font(20));
 		button.setTranslateX(120);
-		button.setTranslateY(480);
+		button.setTranslateY(520);
 		button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {

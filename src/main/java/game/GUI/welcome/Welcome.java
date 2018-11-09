@@ -113,7 +113,7 @@ public class Welcome extends Application {
 		
 		root.getChildren().addAll(imageView, welcomeLabel, inputLabel, 
 				answerField, actionTargetText, button);
-		scene = new Scene(root, 1050, 900);
+		scene = new Scene(root, 1250, 900);
 		return scene;
 	}
 }

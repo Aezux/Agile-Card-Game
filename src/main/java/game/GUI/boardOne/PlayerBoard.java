@@ -42,6 +42,7 @@ public class PlayerBoard extends Application {
     ArrayList<PlayerComponent> players;
     String playerChosen;
     LabelMaker labelMaker = new LabelMaker();
+    String topic;
 
     /* Launches the GUI */
     public static void main(String[] args) {
@@ -72,7 +73,7 @@ public class PlayerBoard extends Application {
 
         root.getChildren().addAll(imageView, boardLabel);
 
-        scene = new Scene(root, 1050, 900);
+        scene = new Scene(root, 1250, 900);
 
         scene.setOnMouseClicked(mouseHandler);
         scene.setOnMouseDragged(mouseHandler);
@@ -87,7 +88,14 @@ public class PlayerBoard extends Application {
         Question question = new Question(new Token().getToken());
 
         for (int i = 0; i < 6; i++) {
-            Card card = question.getCard("27");
+        	Card card = new Card();
+        	//Only put this if and else case in here so that i can test this class without testing the Main in the Game package
+        	if (topic != null) {
+        		card = question.getCard(topic);
+        	}
+        	else { 
+        		card = question.getCard("27");
+        	}
 
 //			System.out.println("Question: " + card.getQuestion());
 //			System.out.println("Choices: " + card.getChoices());
@@ -158,6 +166,7 @@ public class PlayerBoard extends Application {
                     			player.addCard(cardComp.getCard());
                     			//Removes the card from view 
                     			root.getChildren().remove(cardComp.getRect());
+                    			handDealt.remove(cardComp);
                     			break;
                     		}
                     	}
@@ -198,6 +207,11 @@ public class PlayerBoard extends Application {
         }
 
     };
+    
+    //Return the ArrayList of players
+    public ArrayList<PlayerComponent> getPlayers(){
+    	return this.players;
+    }
 
     //	Looks to see what component is at the clickPoint, if none return null
     private CardComponent getCurrentComponent() {
@@ -208,6 +222,21 @@ public class PlayerBoard extends Application {
             }
         }
         return currentComponent;
+    }
+    
+    //Sets topic
+    public void setTopic(String topic) {
+    	this.topic = topic;
+    }
+    
+    //Gets topic
+    public String getTopic() {
+    	return topic;
+    }
+    
+    //Returns handDealt
+    public ArrayList<CardComponent> getHandDealt() {
+    	return handDealt;
     }
     
 }
