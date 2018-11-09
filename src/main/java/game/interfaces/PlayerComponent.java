@@ -5,6 +5,7 @@ import java.util.Queue;
 
 import game.backend.Card;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -12,8 +13,8 @@ public class PlayerComponent {
     Rectangle rectangle;
     boolean hasQuestion;
     String player;
+    Label playerLabel;
     LinkedList<Card> cardsDealt = new LinkedList<Card>();
-
 
     public PlayerComponent(Point2D pos, String player) {
         this.player = player;
@@ -34,7 +35,7 @@ public class PlayerComponent {
     }
 
     //updates the players turn
-    public void playerTurn() {
+    public void setQuestion() {
         if (hasQuestion) hasQuestion = false;
         else hasQuestion = true;
     }
@@ -82,5 +83,15 @@ public class PlayerComponent {
 //    gets  the cards dealt
     public Queue<Card> getCardsDealt(){
     	return cardsDealt;
+    }
+    
+    //Sets the label for the player
+    public void setLabel(Label playerLabel) {
+    	this.playerLabel = playerLabel;
+    }
+    
+    //Returns the label for the player
+    public Label getLabel() {
+    	return playerLabel;
     }
 }

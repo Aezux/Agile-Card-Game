@@ -45,18 +45,9 @@ public class PlayerBoard2 extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
-		cards = new ArrayList<Card>();
-		Question question = new Question(new Token().getToken());
-		
-		/* Add 4 cards to the ArrayList */
-		for (int i=0; i<4; ++i) {
-			cards.add(question.getCard("23"));
-		}
-		
 		teams.addTeam("team1");
-		
 		primaryStage.setTitle("Enter an Answer");
-		primaryStage.setScene(getScene(cards, "team1"));
+		primaryStage.setScene(getScene(null, "team1"));
 		PlayerTurn(0);
 		primaryStage.show();
 	}
@@ -66,11 +57,11 @@ public class PlayerBoard2 extends Application {
 	}
 
 	/* Get the current Card with the player's question */
-	private Text getQuestion(int playerNum) {
+	private Text getQuestion(Card card) {
 		
 		/* Makes the question fit inside the box */
 		String question = "";
-		String[] questionArray = cards.get(playerNum).getQuestion().split(" ");
+		String[] questionArray = card.getQuestion().split(" ");
 		for (int i=0; i<questionArray.length; ++i) {
 			question += questionArray[i] + " ";
 			if (i % 5 == 0 && i != 0) {
@@ -80,7 +71,7 @@ public class PlayerBoard2 extends Application {
 		
 		/* Makes the answer choices fit inside the box */
 		String choices = "";		
-		String[] choiceArray = cards.get(playerNum).getChoices().split(",");
+		String[] choiceArray = card.getChoices().split(",");
 		choiceArray[0] = "A) " + choiceArray[0];
 		choiceArray[1] = "B)" + choiceArray[1];
 		choiceArray[2] = "C)" + choiceArray[2];
@@ -112,43 +103,28 @@ public class PlayerBoard2 extends Application {
 	}
 	
 	/* Checks the answer */
-	private boolean checkAnswer(String answer, int playerNum) {
-		return answer.toLowerCase().equals(cards.get(playerNum).getAnswer().toLowerCase());
+	private boolean checkAnswer(String answer, Card card) {
+		return answer.toLowerCase().equals(card.getAnswer().toLowerCase());
 	}
 
-	public Scene getScene(ArrayList<Card> cards, String team) {
+	public Scene getScene(ArrayList<PlayerComponent> players, String team) {
 		this.team = team;
-		this.cards = cards;
-		players = new ArrayList<PlayerComponent>();
+		this.players = players;
 		root = new AnchorPane();
 		
 		ImageFinder image = new ImageFinder();
-		ImageView imageView = new ImageView(image.getImage("background.jpg", scale, dimensions+7));
-		root.getChildren().add(imageView);
-		
-		/* Player 1 */
-        PlayerComponent playerOne = new PlayerComponent(new Point2D(30,615), "Player 1");
-        Label playerOneLabel = labelMaker.createLabel("Player 1", Color.BLACK, 2, 2, 87, 745);
-        root.getChildren().addAll(playerOne.getPlayerSpace(), playerOneLabel);
-        players.add(playerOne);
+        ImageView imageView = new ImageView(image.getImage("background.jpg", scale, dimensions+7));
+        root.getChildren().add(imageView);
         
-        /* Player 2 */
-        PlayerComponent playerTwo = new PlayerComponent(new Point2D(300,615), "Player 2");
-        Label playerTwoLabel = labelMaker.createLabel("Player 2", Color.BLACK, 2, 2, 357, 745);
-        root.getChildren().addAll(playerTwo.getPlayerSpace(), playerTwoLabel);
-        players.add(playerTwo);
-        
-        /* Player 3 */
-        PlayerComponent playerThree = new PlayerComponent(new Point2D(560,615), "Player 3");        
-        Label playerThreeLabel = labelMaker.createLabel("Player 3", Color.BLACK, 2, 2, 617, 745);
-        root.getChildren().addAll(playerThree.getPlayerSpace(), playerThreeLabel);
-        players.add(playerThree);
-        
-        /* Player 4 */
-        PlayerComponent playerFour = new PlayerComponent(new Point2D(820,615), "Player 4");
-        Label playerFourLabel = labelMaker.createLabel("Player 4", Color.BLACK, 2, 2, 877, 745);
-        root.getChildren().addAll(playerFour.getPlayerSpace(), playerFourLabel);
-        players.add(playerFour);
+		/* Checks if the players were passed in */
+		if (players == null) {
+			this.players = new ArrayList<PlayerComponent>();
+			makePlayers();
+		} else {
+			for (int i=0; i<players.size(); i++) {
+				root.getChildren().addAll(players.get(i).getPlayerSpace(), players.get(i).getLabel());
+			}
+		}
 		
 		scene = new Scene(root, 1250, 900);
 		return scene;
@@ -161,20 +137,22 @@ public class PlayerBoard2 extends Application {
 	/* Shows the scene for each player */
 	private void PlayerTurn(int player) {
 		
-		if (player == 4) {
+		if (player == players.size()) {
 			primaryStage.setScene(sprintEnd.getScene(team));
 			return;
 		};
 		
 		if (player > 0) {
-			players.get(player - 1).playerTurn();
-			players.get(player - 1).changeColor();
+			players.get(player-1).setQuestion();
+			players.get(player-1).changeColor();
 		}
 		
-		players.get(player).playerTurn();
+		players.get(player).setQuestion();
 		players.get(player).changeColor();
 		
-		Text questionLabel = getQuestion(player);
+		Card card = players.get(player).getCardsDealt().poll();
+		
+		Text questionLabel = getQuestion(card);
 		TextField answerField = answerBox();
 		
 		// display the button to submit an answer
@@ -186,7 +164,7 @@ public class PlayerBoard2 extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				if (answerField.getText() != null && !answerField.getText().isEmpty()) {
-					boolean result = checkAnswer(answerField.getText(), player);
+					boolean result = checkAnswer(answerField.getText(), card);
 					if (result) teams.removePointsFromScore(team, cards.get(player).getPoints());
 					root.getChildren().removeAll(questionLabel, answerField, button);
 					PlayerTurn(player+1);
@@ -195,6 +173,42 @@ public class PlayerBoard2 extends Application {
 		});
 		
 		root.getChildren().addAll(questionLabel, answerField, button);
+	}
+	
+	private void makePlayers() {
+		Question question = new Question(new Token().getToken());
+		
+		/* Player 1 */
+        PlayerComponent playerOne = new PlayerComponent(new Point2D(30,615), "Player 1");
+        Label playerOneLabel = labelMaker.createLabel("Player 1", Color.BLACK, 2, 2, 87, 745);
+        root.getChildren().addAll(playerOne.getPlayerSpace(), playerOneLabel);
+        playerOne.addCard(question.getCard("23"));
+        playerOne.setLabel(playerOneLabel);
+        players.add(playerOne);
+        
+        /* Player 2 */
+        PlayerComponent playerTwo = new PlayerComponent(new Point2D(300,615), "Player 2");
+        Label playerTwoLabel = labelMaker.createLabel("Player 2", Color.BLACK, 2, 2, 357, 745);
+        root.getChildren().addAll(playerTwo.getPlayerSpace(), playerTwoLabel);
+        playerTwo.addCard(question.getCard("23"));
+        playerTwo.setLabel(playerTwoLabel);
+        players.add(playerTwo);
+        
+        /* Player 3 */
+        PlayerComponent playerThree = new PlayerComponent(new Point2D(560,615), "Player 3");        
+        Label playerThreeLabel = labelMaker.createLabel("Player 3", Color.BLACK, 2, 2, 617, 745);
+        root.getChildren().addAll(playerThree.getPlayerSpace(), playerThreeLabel);
+        playerThree.addCard(question.getCard("23"));
+        playerThree.setLabel(playerThreeLabel);
+        players.add(playerThree);
+        
+        /* Player 4 */
+        PlayerComponent playerFour = new PlayerComponent(new Point2D(820,615), "Player 4");
+        Label playerFourLabel = labelMaker.createLabel("Player 4", Color.BLACK, 2, 2, 877, 745);
+        root.getChildren().addAll(playerFour.getPlayerSpace(), playerFourLabel);
+        playerFour.addCard(question.getCard("23"));
+        playerFour.setLabel(playerFourLabel);
+        players.add(playerFour);
 	}
 	
 }

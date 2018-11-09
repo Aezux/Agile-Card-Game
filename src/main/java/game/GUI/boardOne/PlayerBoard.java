@@ -65,7 +65,7 @@ public class PlayerBoard extends Application {
         ImageView imageView = new ImageView(image.getImage("background.jpg", scale, dimensions+7));
 
         Label boardLabel = new Label("Draw From the Backlog");
-        boardLabel.setTextFill(Color.WHITE);
+        boardLabel.setTextFill(Color.ORANGE);
         boardLabel.setScaleX(6);
         boardLabel.setScaleY(6);
         boardLabel.setTranslateX(475);
@@ -119,24 +119,28 @@ public class PlayerBoard extends Application {
         PlayerComponent playerOne = new PlayerComponent(new Point2D(30,615), "Player 1");
         Label playerOneLabel = labelMaker.createLabel("Player 1", Color.BLACK, 2, 2, 87, 745);
         root.getChildren().addAll(playerOne.getPlayerSpace(), playerOneLabel);
+        playerOne.setLabel(playerOneLabel);
         players.add(playerOne);
         
         /* Player 2 */
         PlayerComponent playerTwo = new PlayerComponent(new Point2D(300,615), "Player 2");
         Label playerTwoLabel = labelMaker.createLabel("Player 2", Color.BLACK, 2, 2, 357, 745);
         root.getChildren().addAll(playerTwo.getPlayerSpace(), playerTwoLabel);
+        playerTwo.setLabel(playerTwoLabel);
         players.add(playerTwo);
         
         /* Player 3 */
         PlayerComponent playerThree = new PlayerComponent(new Point2D(560,615), "Player 3");        
         Label playerThreeLabel = labelMaker.createLabel("Player 3", Color.BLACK, 2, 2, 617, 745);
         root.getChildren().addAll(playerThree.getPlayerSpace(), playerThreeLabel);
+        playerThree.setLabel(playerThreeLabel);
         players.add(playerThree);
         
         /* Player 4 */
         PlayerComponent playerFour = new PlayerComponent(new Point2D(820,615), "Player 4");
         Label playerFourLabel = labelMaker.createLabel("Player 4", Color.BLACK, 2, 2, 877, 745);
         root.getChildren().addAll(playerFour.getPlayerSpace(), playerFourLabel);
+        playerFour.setLabel(playerFourLabel);
         players.add(playerFour);
     }
 
