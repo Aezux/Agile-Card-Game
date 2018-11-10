@@ -46,9 +46,13 @@ public class PlayerBoard2 extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
-		teams.addTeam("team1");
+//		teams.addTeam("team1");
 		primaryStage.setTitle("Enter an Answer");
-		primaryStage.setScene(getScene(players, "team1"));
+		String team;
+		if (teams.checkIfTeam1Turn()) {
+			team = "team1";
+		} else team = "team2";
+		primaryStage.setScene(getScene(players, team));
 		PlayerTurn(0, true);
 		primaryStage.show();
 	}
