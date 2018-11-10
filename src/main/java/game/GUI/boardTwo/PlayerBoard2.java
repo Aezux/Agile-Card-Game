@@ -41,6 +41,7 @@ public class PlayerBoard2 extends Application {
 	private PointsKeeperSingleton teams = PointsKeeperSingleton.getUniqueInstance();
 	private SprintEnd sprintEnd = new SprintEnd();
 	int numOfPlayers;
+	private boolean endOfSprint;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -139,6 +140,7 @@ public class PlayerBoard2 extends Application {
 	private void PlayerTurn(int player, boolean isFirstTime) {
 		
 		if (player == players.size()) {
+			endOfSprint = true;
 			primaryStage.setScene(sprintEnd.getScene(team));
 			return;
 		};
@@ -226,6 +228,10 @@ public class PlayerBoard2 extends Application {
 	//sets the list of players (this is used so we can pass the list from PlayerBoard1 to PlayerBoard2)
 	public void setListofPlayers(ArrayList<PlayerComponent> players) {
 		this.players = players;
+	}
+	
+	public boolean checkIfEndOfSprint() {
+		return this.endOfSprint;
 	}
 	
 }

@@ -18,7 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class chooseTeam extends Application {
+public class ChooseTeam extends Application {
 
     private final String HEADER = "The Agile Trivia Card Game";
     private final String NAME_PROMPT = "Enter your name: ";
@@ -28,6 +28,7 @@ public class chooseTeam extends Application {
     private Pane root;
     private Scene scene;
     private boolean validInput = false;
+    private boolean teamsAreFull;
     
     public static void main(String[] args) {
     	launch(args);
@@ -99,16 +100,42 @@ public class chooseTeam extends Application {
             public void handle(ActionEvent e) {
                 if ((nameField.getText() != null && !nameField.getText().isEmpty()) &&
                         (teamField.getText() != null && !teamField.getText().isEmpty())) {
-
+                	
                     try {
                         String nameInput = nameField.getText();
                         String teamInput = teamField.getText();
                         actionTargetText.setText("");
-                        System.out.println(nameInput + " has joined Team " + teamInput);
-                        Player newPlayer = new Player(nameInput, teamInput);
-                        PointsKeeperSingleton.getUniqueInstance().addPlayerToTeam(teamInput, newPlayer);
-                        validInput = true;
-
+                        int teamNum = Integer.parseInt(teamInput)-1;
+                        int teamSize = PointsKeeperSingleton.getUniqueInstance().getPlayersPerTeam();
+                        
+                        if (!teamInput.equals("1") && !teamInput.equals("2")) {
+                        	actionTargetText.setText("Please enter a 1 or 2 for team.");
+                        }
+//                        else if(PointsKeeperSingleton.getUniqueInstance().getPlayersPerTeam() == 0) {
+//                        	//TODO:         
+//                        }
+                        //Checks to see if team 1 is full
+                        else if (teamNum == 0 && PointsKeeperSingleton.getUniqueInstance().getCurrentSizeOfTeam(teamNum) >= teamSize) {
+                        	actionTargetText.setText("Team 1 is full");
+                        }
+                        //Checks to see if team 2 is full
+                        else if (teamNum == 1 && PointsKeeperSingleton.getUniqueInstance().getCurrentSizeOfTeam(teamNum) >= teamSize) {
+                        	actionTargetText.setText("Team 2 is full");
+                        }
+                        else if(PointsKeeperSingleton.getUniqueInstance().getTeams().get(teamNum).contains(nameInput)) {
+                        	actionTargetText.setText("This team already has a player by that name");
+                        }
+                        else {
+                        	System.out.println(nameInput + " has joined Team " + teamInput);                        	
+//                            Player newPlayer = new Player(nameInput, teamInput);                  
+                        	//Putting the name of the player in their teams array using the index
+                            PointsKeeperSingleton.getUniqueInstance().addPlayerToTeam(teamNum, nameInput);
+                            validInput = true;
+                            if (PointsKeeperSingleton.getUniqueInstance().getCurrentSizeOfTeam(0) == teamSize 
+                            		&& PointsKeeperSingleton.getUniqueInstance().getCurrentSizeOfTeam(1) == teamSize) {
+                            	teamsAreFull = true;
+                            }
+                        }         
                     } catch (Exception exception) {
                         actionTargetText.setText("Please enter a name and team number.");
                     }
@@ -122,4 +149,10 @@ public class chooseTeam extends Application {
 
         return scene;
     }
+    
+    //Checks to see if both teams are full
+    public boolean checkIfTeamsAreFull() {
+    	return this.teamsAreFull;
+    }
+    
 }

@@ -1,5 +1,7 @@
 package game.GUI.welcome;
 
+import java.util.ArrayList;
+
 import game.backend.ImageFinder;
 import game.backend.PointsKeeperSingleton;
 import javafx.application.Application;
@@ -102,6 +104,10 @@ public class Welcome extends Application {
 							validInput = true;
 							System.out.println(validInput);
 							numPlayersPerTeam = result;
+							PointsKeeperSingleton.getUniqueInstance().setPlayersPerTeam(numPlayersPerTeam);
+							//initializing the list of teams with empty teams
+							PointsKeeperSingleton.getUniqueInstance().getTeams().add(new ArrayList<String>());
+							PointsKeeperSingleton.getUniqueInstance().getTeams().add(new ArrayList<String>());
 						}else {
 							actionTargetText.setText("Please enter a number between 4 and 6");
 						}

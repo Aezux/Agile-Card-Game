@@ -4,7 +4,7 @@ import game.GUI.CardComponent;
 import game.backend.Card;
 import game.backend.ImageFinder;
 import game.backend.LabelMaker;
-
+import game.backend.PointsKeeperSingleton;
 import game.backend.Question;
 import game.backend.Token;
 import game.interfaces.PlayerComponent;
@@ -115,7 +115,8 @@ public class PlayerBoard extends Application {
         int positionX = 90;
         double posX = 30;
         for (int i = 0; i < this.numOfPlayers; i++) {
-        	String playerName = "Player " + (i+1);
+        	String playerName = PointsKeeperSingleton.getUniqueInstance().getTeams().get(0).get(i);
+//        	String playerName = "Player " + (i+1);
         	PlayerComponent player = new PlayerComponent(new Point2D(posX,615), playerName);        	
         	Label label = labelMaker.createLabel(playerName, Color.BLACK, 2, 2, positionX, 745);
         	root.getChildren().addAll(player.getPlayerSpace(), label);

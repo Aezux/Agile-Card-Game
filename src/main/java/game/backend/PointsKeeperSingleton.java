@@ -1,5 +1,6 @@
 package game.backend;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,12 +16,14 @@ import javafx.stage.Stage;
  */
 public class PointsKeeperSingleton {
 	
-	private final int startingPoints = 200;
+	private final int startingPoints1 = 200;
 	private static PointsKeeperSingleton instance;
 	private Map<String, Integer> teams;
-	private Map<String, Player> teamPlayers = new HashMap<>();
+	private boolean team1Turn;
+	
 	private int playersPerTeam;
-	private Stage window;
+	//An arrayList of string arrayLists, so that the first array is team1 and the second is team 2
+	private ArrayList<ArrayList<String>> teamPlayers = new ArrayList<ArrayList<String>>();
 	
 	static {
 		instance = new PointsKeeperSingleton();
@@ -34,8 +37,8 @@ public class PointsKeeperSingleton {
 		return instance;
 	}
 
-	public void addPlayerToTeam(String team, Player player){
-		teamPlayers.put(team, player);
+	public void addPlayerToTeam(int team, String player){
+		teamPlayers.get(team).add(player);
 	}
 	
 	public void addPointsToScore(String team, int points) {
@@ -50,13 +53,13 @@ public class PointsKeeperSingleton {
 	
 	public int getTeamScore(String team) {
 		if (getWinner().equals("None")) {
-			return startingPoints;
+			return startingPoints1;
 		}
 		return teams.get(team).intValue();
 	}
 	
 	public void addTeam(String team) {
-		teams.put(team, startingPoints);
+		teams.put(team, startingPoints1);
 	}
 	
 	/**
@@ -87,6 +90,24 @@ public class PointsKeeperSingleton {
 	//Get the number of players per team
 	public int getPlayersPerTeam() {
 		return playersPerTeam;
+	}
+	
+	public ArrayList<ArrayList<String>> getTeams(){
+		return this.teamPlayers;
+	}
+	
+	public int getCurrentSizeOfTeam(int teamIndex) {
+		return teamPlayers.get(teamIndex).size();
+	}
+	
+	public boolean checkBothTeamsEmpty() {
+//		if (teamPlayers.isEmpty()) {
+//			return true;
+//		}
+		if (teamPlayers.get(0).isEmpty() && teamPlayers.get(1).isEmpty()) {
+			return true;
+		}
+		else return false;
 	}
 	
 }

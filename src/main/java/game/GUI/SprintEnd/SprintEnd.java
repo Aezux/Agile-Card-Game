@@ -43,7 +43,7 @@ public class SprintEnd extends Application {
 	
 	/* Product owner gives or takes points */
 	private String getPoints() {
-		int points = getRandomNumber(51);
+		int	points = getRandomNumber(16);
 		if (getRandomNumber(2) == 1) {
 			teams.removePointsFromScore(team, points);
 			points *= -1;

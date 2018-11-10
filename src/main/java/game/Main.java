@@ -1,6 +1,7 @@
 package game;
 
 import game.GUI.choice.Choice;
+import game.GUI.welcome.ChooseTeam;
 import game.GUI.welcome.Welcome;
 import game.GUI.Board;
 import game.GUI.SprintEnd.SprintEnd;
@@ -24,6 +25,7 @@ public class Main extends Application{
 	
 	Welcome welcome;
 	Board board;
+	ChooseTeam chooseTeam;
 	Choice choice;
 	PlayerBoard board1;
 	PlayerBoard2 board2;	
@@ -31,6 +33,7 @@ public class Main extends Application{
 	Stage window;
 	PointsKeeperSingleton teams;
 	int sceneCounter = 0;
+	boolean teamsAreFull;
 
 	static ArrayList<Card> handDealt = new ArrayList<Card>();
 	Point2D clickPoint;
@@ -52,6 +55,7 @@ public class Main extends Application{
 		
 		welcome = new Welcome();
 		board = new Board();
+		chooseTeam = new ChooseTeam();
 		choice = new Choice();
 		board1 = new PlayerBoard();
 		board2 = new PlayerBoard2();
@@ -69,11 +73,21 @@ public class Main extends Application{
 
 		@Override
 		public void handle(ActionEvent event) {
-			if (welcome.getValidInput() && sceneCounter == 0) {
+			
+			if (welcome.getValidInput() && sceneCounter == 0 && PointsKeeperSingleton.getUniqueInstance().checkBothTeamsEmpty()) {
+				try {
+					chooseTeam.start(window);
+					sceneCounter++;
+				} catch (Exception e) {					
+					e.printStackTrace();
+				}
+			}
+			
+			else if (welcome.getValidInput() && sceneCounter == 1 && chooseTeam.checkIfTeamsAreFull()) {
 
 				try {
-					
 					choice.start(window);
+					sceneCounter++;
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -81,7 +95,7 @@ public class Main extends Application{
 			}
 			
 			//Set the topic and change to the next board
-			if (choice.getTopic() != null && sceneCounter == 0) {
+			else if (choice.getTopic() != null && sceneCounter == 2) {
 				try {
 					int numPlayerPerTeam = welcome.getNumPlayersPerTeam();
 					String topic = choice.getTopic();
@@ -94,6 +108,10 @@ public class Main extends Application{
 				}
 			}
 			
+			else if(sceneCounter == 4 && board2.checkIfEndOfSprint()) {
+				//TODO:
+			}
+			
 		}
 		
 	};
@@ -101,23 +119,19 @@ public class Main extends Application{
 	EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
 
 		@Override
-		public void handle(MouseEvent mouseEvent) {
-			// TODO Auto-generated method stub
+		public void handle(MouseEvent mouseEvent) {		
 			String eventName = mouseEvent.getEventType().getName();
 			
 			switch(eventName) {
 				case("MOUSE_RELEASED"):
 					//If there are no cards left to be dealt to the players, and this isn't their first time then continue 
-					if (board1.getHandDealt().isEmpty() && sceneCounter == 1) {
+					if (board1.getHandDealt().isEmpty() && sceneCounter == 3) {
 						try {
-							if (board1.getPlayers() == null) {
-								System.out.println("RETURNING a NULL Value");
-							} else System.out.println("returning playes");
 							board2.setListofPlayers(board1.getPlayers());
 							board2.start(window);
 							sceneCounter++;
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
+							System.out.println("Board2: " + sceneCounter);
+						} catch (Exception e) {					
 							e.printStackTrace();
 						}
 					}
