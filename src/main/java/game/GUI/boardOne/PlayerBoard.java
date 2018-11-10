@@ -112,10 +112,16 @@ public class PlayerBoard extends Application {
         //This is is so that we can run this program on its own
         if (numOfPlayers == 0) numOfPlayers = 4;
         
+        //We will use variable team to access the index of the team in the arrayList of teamPlayers in PointsKeeperSingleton
+        int team = 0;
+        if (!PointsKeeperSingleton.getUniqueInstance().checkIfTeam1Turn()) {
+        	team = 1;
+        }
+        
         int positionX = 90;
         double posX = 30;
         for (int i = 0; i < this.numOfPlayers; i++) {
-        	String playerName = PointsKeeperSingleton.getUniqueInstance().getTeams().get(0).get(i);
+        	String playerName = PointsKeeperSingleton.getUniqueInstance().getTeams().get(team).get(i);
 //        	String playerName = "Player " + (i+1);
         	PlayerComponent player = new PlayerComponent(new Point2D(posX,615), playerName);        	
         	Label label = labelMaker.createLabel(playerName, Color.BLACK, 2, 2, positionX, 745);

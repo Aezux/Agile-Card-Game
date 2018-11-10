@@ -1,6 +1,7 @@
 package game;
 
 import game.GUI.choice.Choice;
+import game.GUI.gameWinner.GameWinner;
 import game.GUI.welcome.ChooseTeam;
 import game.GUI.welcome.Welcome;
 import game.GUI.Board;
@@ -30,14 +31,15 @@ public class Main extends Application{
 	PlayerBoard board1;
 	PlayerBoard2 board2;	
 	SprintEnd sprintEnd;
+	GameWinner gameWinner;
 	Stage window;
-	PointsKeeperSingleton teams;
+	PointsKeeperSingleton teams = PointsKeeperSingleton.getUniqueInstance();
 	int sceneCounter = 0;
 	boolean teamsAreFull;
-
 	static ArrayList<Card> handDealt = new ArrayList<Card>();
 	Point2D clickPoint;
 	boolean firstTime = true;
+	int sprintNumber = 1;
 	
 	public static void main(String args[]) {
 		launch(args);
@@ -48,8 +50,7 @@ public class Main extends Application{
 		this.window = window;
 		window.setTitle("Agile Card Game");
 		
-		/* Adds both teams */
-		teams = PointsKeeperSingleton.getUniqueInstance();
+		/* Adds both teams */		
 		teams.addTeam("team1");
 		teams.addTeam("team2");
 		
@@ -58,10 +59,11 @@ public class Main extends Application{
 		chooseTeam = new ChooseTeam();
 		choice = new Choice();
 		board1 = new PlayerBoard();
-		board2 = new PlayerBoard2();
-                
-                		
+		board2 = new PlayerBoard2();   
+		gameWinner = new GameWinner();
 		
+		
+		//Adds the event handlers so that i can change scenes on button clicks and when i released all the cards 
 		window.addEventHandler(ActionEvent.ACTION, actionHandler);
 		window.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseHandler);
 				
@@ -74,20 +76,35 @@ public class Main extends Application{
 		@Override
 		public void handle(ActionEvent event) {
 			
-			if (welcome.getValidInput() && sceneCounter == 0 && PointsKeeperSingleton.getUniqueInstance().checkBothTeamsEmpty()) {
+			if(teams.checkIfTeam1Turn()) {
+				System.out.println("team1's turn");
+			} else System.out.println("team2's turn");			
+			System.out.println("Sprint#: " + sprintNumber);
+			
+			//If we have passed sprint 4 for both teams then we can announce the winner
+			if (sprintNumber > 4) {
+				try {
+					gameWinner.start(window);
+				} catch (Exception e) {					
+					e.printStackTrace();
+				}
+			}
+									
+			else if (welcome.getValidInput() && sceneCounter == 0 && teams.checkBothTeamsEmpty()) {
 				try {
 					chooseTeam.start(window);
-					sceneCounter++;
+					sceneCounter++;					
 				} catch (Exception e) {					
 					e.printStackTrace();
 				}
 			}
 			
-			else if (welcome.getValidInput() && sceneCounter == 1 && chooseTeam.checkIfTeamsAreFull()) {
+			//Checks to see that the teams are full before going on to the next scene
+			else if (sceneCounter == 1 && chooseTeam.checkIfTeamsAreFull()) {
 
 				try {
 					choice.start(window);
-					sceneCounter++;
+					sceneCounter++;					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -101,7 +118,7 @@ public class Main extends Application{
 					String topic = choice.getTopic();
 					board1.setNumOfPlayers(numPlayerPerTeam);
 					board1.setTopic(topic);
-					board1.start(window);
+					board1.start(window);					
 					sceneCounter++;
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -110,8 +127,23 @@ public class Main extends Application{
 			
 			else if(sceneCounter == 4 && board2.checkIfEndOfSprint()) {
 				//TODO:
+				sceneCounter = 1;			
+				
+				//Make a blank slate for these scenes
+				choice = new Choice();
+				board1 = new PlayerBoard();
+				board2 = new PlayerBoard2();  
+				
+				//checks to see if it is Team2's turn, if so then we can we can change the sprintNumber
+				if (!teams.checkIfTeam1Turn()) {
+					//Will use this to keep track of what sprint we are on
+					sprintNumber++;
+				}
+				//switch to the next teams turn
+				teams.changeTurns();
+								
 			}
-			
+						
 		}
 		
 	};

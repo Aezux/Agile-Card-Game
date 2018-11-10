@@ -19,7 +19,7 @@ public class PointsKeeperSingleton {
 	private final int startingPoints1 = 200;
 	private static PointsKeeperSingleton instance;
 	private Map<String, Integer> teams;
-	private boolean team1Turn;
+	private boolean team1Turn = true;
 	
 	private int playersPerTeam;
 	//An arrayList of string arrayLists, so that the first array is team1 and the second is team 2
@@ -108,6 +108,15 @@ public class PointsKeeperSingleton {
 			return true;
 		}
 		else return false;
+	}
+	
+	//checks to see if it is team1's turn
+	public boolean checkIfTeam1Turn() {
+		return this.team1Turn;
+	}
+	
+	public void changeTurns() {
+		this.team1Turn = !team1Turn;
 	}
 	
 }
